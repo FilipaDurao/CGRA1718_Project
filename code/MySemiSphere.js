@@ -1,12 +1,12 @@
 /**
- * MyLamp 
+ * MyLamp
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
 
-class MyLamp extends CGFobject
+class MySemiSphere extends CGFobject
 {
-	constructor(scene, slices, stacks) 
+	constructor(scene, slices, stacks)
 	{
 		super(scene);
 
@@ -16,7 +16,7 @@ class MyLamp extends CGFobject
 		this.initBuffers();
 	};
 
-	initBuffers() 
+	initBuffers()
 	{
 		this.vertices = [];
 
@@ -25,15 +25,15 @@ class MyLamp extends CGFobject
 		this.normals = [];
 
 		// Angles
-		var theta = 2.0*Math.PI/this.slices; 
-		var alfa = Math.PI/(2*this.stacks); 
-		
+		var theta = 2.0*Math.PI/this.slices;
+		var alfa = Math.PI/(2*this.stacks);
+
 		// Fill vertices
 		for(let i = 0; i <= this.stacks; i++) {
 			for(let j = 0; j < this.slices; j++) {
 				this.vertices.push(Math.cos(theta*j)*Math.cos(alfa*i), Math.sin(theta*j)*Math.cos(alfa*i), Math.sin(alfa*i));
 				this.normals.push(Math.cos(theta*j)*Math.cos(alfa*i), Math.sin(theta*j)*Math.cos(alfa*i), Math.sin(alfa*i));
-			} 
+			}
 		}
 
 		// Fill indices
@@ -51,8 +51,8 @@ class MyLamp extends CGFobject
 					this.slices*(i + 1) + j
 				);
 			}
-			
-			
+
+
 		}
 
 		this.primitiveType=this.scene.gl.TRIANGLES;
