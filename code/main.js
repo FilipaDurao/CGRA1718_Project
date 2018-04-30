@@ -10,7 +10,6 @@ serialInclude([
 	'Plane.js',
 	'MyPrism.js', 
 	'MyCylinder.js',
-	'MyCircle.js',
 	"MyTerrain.js",
 
 	main=function() {
