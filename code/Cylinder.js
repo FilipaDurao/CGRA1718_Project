@@ -19,15 +19,21 @@ class Cylinder extends CGFobject
 		this.vertices = [];
 		this.indices = [];
 		this.normals = [];
+		this.texCoords = [];
 
 		// External angle
 		var theta = 2.0*Math.PI/this.slices; 
+
+		var t;
+		var s;
 		
-		// Fill vertices
 		for(let i = 0; i <= this.stacks; i++) {
+			t = (this.stacks-i)/this.stacks;
 			for(let j = 0; j < this.slices; j++) {
+				s = (this.slices-j)/this.slices;
 				this.vertices.push(Math.cos(theta*j), Math.sin(theta*j), i/this.stacks);
 				this.normals.push(Math.cos(theta*j),Math.sin(theta*j),0);
+				this.texCoords.push(s, t);
 			} 
 		}
 

@@ -12,6 +12,7 @@ class Wheel extends CGFobject
 
 		this.tireAppearance = new CGFappearance(this.scene);
 		this.tireAppearance.loadTexture("../textures/tireTexture.jpg");
+		this.tireAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
         this.tireAppearance.setSpecular(0.1, 0.1, 0.1, 1);
         this.tireAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.tireAppearance.setAmbient(0.6, 0.6, 0.6, 1);
@@ -31,7 +32,6 @@ class Wheel extends CGFobject
     
     display(){
 
-
 		this.scene.pushMatrix();
 			this.tireAppearance.apply();
 			this.cylinder.display();
@@ -49,6 +49,7 @@ class Wheel extends CGFobject
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
+			this.janteAppearance.apply();
 			this.scene.translate(0, 0, 1);
 			this.scene.scale(0.8, 0.8, 0.15)
 			this.semiSphere.display();
@@ -57,7 +58,7 @@ class Wheel extends CGFobject
 		this.scene.pushMatrix();
 			this.janteAppearance.apply();
 			this.scene.rotate(180*degToRad, 0, 1, 0);
-			this.scene.scale(0.8, 0.8, 0.15)
+			this.scene.scale(0.8, 0.8, 0.15);
 			this.semiSphere.display();
 		this.scene.popMatrix();
     }
