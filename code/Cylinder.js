@@ -1,5 +1,5 @@
 /**
- * Cylinder 
+ * Cylinder
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
@@ -22,38 +22,23 @@ class Cylinder extends CGFobject
 		this.texCoords = [];
 
 		// External angle
-		var theta = 2.0*Math.PI/this.slices; 
+		var theta = 2.0*Math.PI/this.slices;
 
-		var t;
-		var s;
-		
-		for(let i = 0; i <= this.stacks; i++) {
-			t = (this.stacks-i)/this.stacks;
-			for(let j = 0; j < this.slices; j++) {
-				s = (this.slices-j)/this.slices;
-				this.vertices.push(Math.cos(theta*j), Math.sin(theta*j), i/this.stacks);
-				this.normals.push(Math.cos(theta*j),Math.sin(theta*j),0);
-				this.texCoords.push(s, t);
-			} 
+		for(let i = 0; i <= this.slices; i++) {
+			for(let j = 0; j <= this.stacks; j++) {
+				this.vertices.push(Math.cos(theta*i), Math.sin(theta*i), j/this.stacks);
+				this.normals.push(Math.cos(theta*i),Math.sin(theta*i),0);
+				this.texCoords.push(i*1/this.slices, j*1/this.stacks);
+			}
 		}
 
-		// Fill indices
-		for(let i = 0; i < this.stacks; i++) {
-			for(let j = 0; j < this.slices; j++) {
+		for (let i = 0; i < this.slices; ++i) {
+			for(let j = 0; j < this.stacks; ++j) {
 				this.indices.push(
-					this.slices*i + j,
-					this.slices*i + (j+1)%(this.slices),
-					this.slices*(i + 1) + j
-				);
-
-				this.indices.push(
-					this.slices*i + (j+1)%(this.slices),
-					this.slices*(i + 1) + (j+1)%(this.slices),
-					this.slices*(i + 1) + j
+					(i+1)*(this.stacks+1) + j, i*(this.stacks+1) + j+1, i*(this.stacks+1) + j,
+					i*(this.stacks+1) + j+1, (i+1)*(this.stacks+1) + j, (i+1)*(this.stacks+1) + j+1
 				);
 			}
-			
-			
 		}
 
 		this.primitiveType=this.scene.gl.TRIANGLES;
