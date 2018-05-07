@@ -61,7 +61,7 @@ class LightingScene extends CGFscene
 	};
 
 	initObjects() {
-		//this.wheel = new Wheel(this);
+		this.wheel = new Wheel(this);
 		//this.car = new MyVehicle(this);
 		this.floor = new Terrain(this);
 	}
@@ -102,6 +102,11 @@ class LightingScene extends CGFscene
 
 		this.pushMatrix();
 			this.floor.display();
+		this.popMatrix();
+
+		this.pushMatrix();
+			this.translate(0, 1, 0);
+			this.wheel.display();
 		this.popMatrix();
 
 		// ---- END Scene drawing section

@@ -2,9 +2,9 @@ class Wheel extends CGFobject
 {
 	constructor(scene){
         super(scene);
-        this.circle = new Circle(this.scene, 30);
+        this.circle = new MyCircle(this.scene, 30);
         this.circle.initBuffers();
-		this.cylinder = new Cylinder(this.scene, 30, 30);
+		this.cylinder = new MyCylinder(this.scene, 30, 30);
 		this.cylinder.initBuffers();
 		this.semiSphere = new SemiSphere(this.scene, 30, 30);
 		this.semiSphere.initBuffers();

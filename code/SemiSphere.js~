@@ -1,10 +1,10 @@
 /**
- * SemiSphere
+ * MySemiSphere
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
 
-class SemiSphere extends CGFobject
+class MySemiSphere extends CGFobject
 {
 	constructor(scene, slices, stacks){
 		super(scene);

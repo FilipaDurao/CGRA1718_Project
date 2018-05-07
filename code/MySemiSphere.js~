@@ -1,5 +1,5 @@
 /**
- * SemiSphere
+ * Lamp
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
