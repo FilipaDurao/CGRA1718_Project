@@ -9,10 +9,8 @@ class Wheel extends CGFobject
 		this.semiSphere = new SemiSphere(this.scene, 30, 30);
 		this.semiSphere.initBuffers();
 
-
 		this.tireAppearance = new CGFappearance(this.scene);
 		this.tireAppearance.loadTexture("../textures/tireTexture.jpg");
-		this.tireAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
         this.tireAppearance.setSpecular(0.1, 0.1, 0.1, 1);
         this.tireAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.tireAppearance.setAmbient(0.6, 0.6, 0.6, 1);

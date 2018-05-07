@@ -34,13 +34,11 @@ class LightingScene extends CGFscene
 		
 	};
 
-	initCameras() 
-	{
+	initCameras(){
 		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 	};
 
-	initLights() 
-	{
+	initLights(){
 		//this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 
 		// Create light 0
@@ -63,9 +61,9 @@ class LightingScene extends CGFscene
 	};
 
 	initObjects() {
-		//this.cube = new UnitCubeQuad(this);
-		//this.semiSphere = new SemiSphere(this, 40, 40);
-		this.wheel = new Wheel(this);
+		//this.wheel = new Wheel(this);
+		//this.car = new MyVehicle(this);
+		this.floor = new Terrain(this);
 	}
 
 	updateLights() 
@@ -103,7 +101,7 @@ class LightingScene extends CGFscene
 		// ---- BEGIN Scene drawing section
 
 		this.pushMatrix();
-			this.wheel.display();
+			this.floor.display();
 		this.popMatrix();
 
 		// ---- END Scene drawing section
