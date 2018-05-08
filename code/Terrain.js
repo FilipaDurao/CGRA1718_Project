@@ -3,10 +3,11 @@
  */
 class Terrain extends Plane {
     constructor(scene) {
-        super(scene, 50, 0, 1, 0, 1);
+        super(scene, 50, 0, 50, 0, 50);
 
         this.streetAppearance = new CGFappearance(this.scene);
-		this.streetAppearance.loadTexture("../textures/streetFloorTexture.jpg");
+        this.streetAppearance.setTextureWrap('REPEAT', 'REPEAT');
+        this.streetAppearance.loadTexture("../textures/streetFloorTexture.jpg");
         this.streetAppearance.setSpecular(0.1, 0.1, 0.1, 1);
         this.streetAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.streetAppearance.setAmbient(0.8, 0.8, 0.8, 1);
