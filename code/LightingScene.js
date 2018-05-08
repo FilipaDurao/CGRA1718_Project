@@ -63,7 +63,7 @@ class LightingScene extends CGFscene
 	initObjects() {
 		this.wheel = new Wheel(this);
 		//this.car = new MyVehicle(this);
-		this.floor = new Terrain(this);
+		this.floor = new MyTerrain(this);
 	}
 
 	updateLights() 

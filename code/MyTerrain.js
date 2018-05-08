@@ -1,7 +1,7 @@
 /**
  * 
  */
-class Terrain extends Plane {
+class MyTerrain extends Plane {
     constructor(scene) {
         super(scene, 50, 0, 50, 0, 50);
 
