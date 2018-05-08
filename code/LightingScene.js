@@ -16,7 +16,7 @@ class LightingScene extends CGFscene
 
 		this.initLights();
 
-		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		this.gl.clearColor(135/255, 206/255, 235/255, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
@@ -62,7 +62,7 @@ class LightingScene extends CGFscene
 
 	initObjects() {
 		this.wheel = new Wheel(this);
-		//this.car = new MyVehicle(this);
+		this.car = new MyVehicle(this);
 		this.floor = new Terrain(this);
 	}
 
@@ -100,13 +100,12 @@ class LightingScene extends CGFscene
 
 		// ---- BEGIN Scene drawing section
 
-		this.pushMatrix();
+		/*this.pushMatrix();
 			this.floor.display();
-		this.popMatrix();
+		this.popMatrix();*/
 
 		this.pushMatrix();
-			this.translate(0, 1, 0);
-			this.wheel.display();
+			this.car.display();
 		this.popMatrix();
 
 		// ---- END Scene drawing section
