@@ -1,10 +1,10 @@
 /**
- * MyQuad
+ * Quad
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
 
-class MyQuad extends CGFobject {
+class Quad extends CGFobject {
 	constructor(scene, minS, maxS, minT, maxT) {
 		super(scene);
 		this.minS = minS;

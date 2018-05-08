@@ -1,9 +1,4 @@
 var degToRad = Math.PI / 180.0;
-
-var BOARD_WIDTH = 6.0;
-var BOARD_HEIGHT = 4.0;
-
-var BOARD_A_DIVISIONS = 30;
 var BOARD_B_DIVISIONS = 100;
 
 class LightingScene extends CGFscene 
@@ -21,7 +16,7 @@ class LightingScene extends CGFscene
 
 		this.initLights();
 
-		this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		this.gl.clearColor(135/255, 206/255, 235/255, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
@@ -34,29 +29,42 @@ class LightingScene extends CGFscene
 		// Materials
 		this.materialDefault = new CGFappearance(this);
 
+		this.initObjects();
+
 		
 	};
 
-	initCameras() 
-	{
+	initCameras(){
 		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 	};
 
-	initLights() 
-	{
+	initLights(){
 		//this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
-		
-		// Positions for four lights
 
 		// Create light 0
-		this.lights[0].setPosition(0, 5, 0, 1);
+		this.lights[0].setPosition(3, 4, 3, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 		this.lights[0].setAmbient(0, 0, 0, 1);
 		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[0].setSpecular(255, 255, 255, 1.0);
 		this.lights[0].enable();
+
+		// Create light 1
+		this.lights[1].setPosition(3, 4, -3, 1);
+		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
+		this.lights[1].setAmbient(0, 0, 0, 1);
+		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[1].setSpecular(255, 255, 255, 1.0);
+		this.lights[1].enable();
 		
+
 	};
+
+	initObjects() {
+		this.wheel = new Wheel(this);
+		//this.car = new MyVehicle(this);
+		this.floor = new MyTerrain(this);
+	}
 
 	updateLights() 
 	{
@@ -92,6 +100,14 @@ class LightingScene extends CGFscene
 
 		// ---- BEGIN Scene drawing section
 
+		this.pushMatrix();
+			this.floor.display();
+		this.popMatrix();
+
+		this.pushMatrix();
+			this.translate(0, 1, 0);
+			this.wheel.display();
+		this.popMatrix();
 
 		// ---- END Scene drawing section
 	};
