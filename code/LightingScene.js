@@ -56,6 +56,14 @@ class LightingScene extends CGFscene
 		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
 		this.lights[1].setSpecular(255, 255, 255, 1.0);
 		this.lights[1].enable();
+
+		// Create light 2
+		this.lights[2].setPosition(-3, 4, 3, 1);
+		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
+		this.lights[2].setAmbient(0, 0, 0, 1);
+		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
+		this.lights[2].setSpecular(255, 255, 255, 1.0);
+		this.lights[2].enable();
 		
 
 	};
@@ -63,7 +71,7 @@ class LightingScene extends CGFscene
 	initObjects() {
 		this.wheel = new Wheel(this);
 		this.car = new MyVehicle(this);
-		this.floor = new Terrain(this);
+		this.floor = new MyTerrain(this);
 	}
 
 	updateLights() 
@@ -107,6 +115,7 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 			this.car.display();
 		this.popMatrix();
+
 
 		// ---- END Scene drawing section
 	};

@@ -53,12 +53,6 @@ class Wheel extends CGFobject
 			this.semiSphere.display();
 		this.scene.popMatrix();
 
-		this.scene.pushMatrix();
-			this.janteAppearance.apply();
-			this.scene.rotate(180*degToRad, 0, 1, 0);
-			this.scene.scale(0.75, 0.75, 0.15);
-			this.semiSphere.display();
-		this.scene.popMatrix();
     }
 
 
