@@ -11,7 +11,7 @@ class MyTrapezium extends CGFobject {
      * @param {*} a The bottom base width
      * @param {*} b The top base width
      * @param {*} height The vertical height
-     * @param {*} theta The angle between the left-most vertices of edges 'a' and 'b'
+     * @param {*} theta The angle between the left-most vertices of edges 'a' and 'b' (degrees)
      */
 	constructor(scene, a, b, height, theta) {
 		super(scene);
@@ -25,11 +25,12 @@ class MyTrapezium extends CGFobject {
 	};
 
 	initBuffers() {
+		console.log("hey");
 		this.vertices = [
 			0, 0, 0,
 			this.a, 0, 0, 
-			this.height*Math.cos(this.theta), this.height*Math.sin(this.theta), 0, 
-			this.height*Math.cos(this.theta) + this.b, this.height*Math.sin(this.theta), 0
+			this.height/Math.tan(this.theta), this.height, 0, 
+			this.height/Math.tan(this.theta) + this.b, this.height, 0
 		];
 
 		this.indices = [
@@ -54,4 +55,14 @@ class MyTrapezium extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	};
+
+	invert() {
+		this.indices = [
+			0, 2, 1,
+			1, 2, 3
+		];
+
+		this.primitiveType = this.scene.gl.TRIANGLES;
+		this.initGLBuffers();
+	}
 };
