@@ -32,6 +32,7 @@ class Roof extends CGFobject
             this.frontWindowAngle * 180/Math.PI 
         );
 
+        // lateral window 2
         this.lateralWindow2 = new MyTrapezium(
             scene, 
             bottom_lenght, 
@@ -60,14 +61,42 @@ class Roof extends CGFobject
         this.scene.popMatrix();
 
         // front window
+        let fwin_lenght = this.HEIGHT/Math.sin(this.frontWindowAngle);
         this.scene.pushMatrix();
-            let length = this.HEIGHT/Math.sin(this.frontWindowAngle);
             this.scene.translate(0, 0, this.WIDTH/2);
             this.scene.rotate(-this.frontWindowAngle, 0, 0, 1);
             this.scene.rotate(-Math.PI/2, 0, 1, 0);
-            this.scene.translate(0, length/2, 0);
-            this.scene.scale(this.WIDTH, length, 0);
+            this.scene.translate(0, fwin_lenght/2, 0);
+            this.scene.scale(this.WIDTH, fwin_lenght, 0);
             this.frontWindow.display();
+        this.scene.popMatrix();
+
+        // back window
+        let backWindowAngle = Math.PI/2 - this.lateralWindow1.getBackEdgeAngle();
+        let bwin_lenght = this.lateralWindow1.getBackEdgeLenght();
+        this.scene.pushMatrix();
+            this.scene.translate(this.BOTTOM_LENGTH, 0, this.WIDTH/2);
+            this.scene.rotate(backWindowAngle, 0, 0, 1);
+            this.scene.rotate(Math.PI/2, 0, 1, 0);
+            this.scene.translate(0, bwin_lenght/2, 0);
+            this.scene.scale(this.WIDTH, bwin_lenght, 0);
+            this.backWindow.display();
+        this.scene.popMatrix();
+
+        // top roof
+        this.scene.pushMatrix();
+            this.scene.translate(this.HEIGHT/Math.tan(this.frontWindowAngle) + this.TOP_LENGTH/2, this.HEIGHT, this.WIDTH/2);
+            this.scene.rotate(-Math.PI/2, 1, 0, 0);
+            this.scene.scale(this.TOP_LENGTH, this.WIDTH, 0);
+            this.roofTop.display();
+        this.scene.popMatrix();
+
+        // bottom
+        this.scene.pushMatrix();
+            this.scene.translate(this.BOTTOM_LENGTH/2, 0, this.WIDTH/2);
+            this.scene.rotate(Math.PI/2, 1, 0, 0);
+            this.scene.scale(this.BOTTOM_LENGTH, this.WIDTH, 0);
+            this.roofBottom.display();
         this.scene.popMatrix();
     }
 

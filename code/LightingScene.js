@@ -39,30 +39,30 @@ class LightingScene extends CGFscene
 	};
 
 	initLights(){
-		//this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
+		this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 
 		// Create light 0
 		this.lights[0].setPosition(3, 4, 3, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[0].setAmbient(0, 0, 0, 1);
-		this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[0].setSpecular(255, 255, 255, 1.0);
+		this.lights[0].setAmbient(1.0, 1.0, 1.0, 1);
+		this.lights[0].setDiffuse(0.9, 0.9, 0.9, 1.0);
+		this.lights[0].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[0].enable();
 
 		// Create light 1
 		this.lights[1].setPosition(3, 4, -3, 1);
 		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[1].setAmbient(0, 0, 0, 1);
-		this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[1].setSpecular(255, 255, 255, 1.0);
+		this.lights[1].setAmbient(1.0, 1.0, 1.0, 1);
+		this.lights[1].setDiffuse(0.9, 0.9, 0.9, 1.0);
+		this.lights[1].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[1].enable();
 
 		// Create light 2
 		this.lights[2].setPosition(-3, 4, 3, 1);
 		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[2].setAmbient(0, 0, 0, 1);
-		this.lights[2].setDiffuse(1.0, 1.0, 1.0, 1.0);
-		this.lights[2].setSpecular(255, 255, 255, 1.0);
+		this.lights[2].setAmbient(1.0, 1.0, 1.0, 1);
+		this.lights[2].setDiffuse(0.9, 0.9, 0.9, 1.0);
+		this.lights[2].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[2].enable();
 		
 
@@ -73,7 +73,7 @@ class LightingScene extends CGFscene
 		//this.car = new MyVehicle(this);
 		this.floor = new MyTerrain(this);
 		//this.trapezium = new MyTrapezium(this, 5, 3, 1, 90);
-		this.roof = new Roof(this, 2, 1.5, 4, 1.5);
+		this.roof = new Roof(this, 2, 1.75, 4, 1.5);
 		console.log(this.roof);
 	}
 

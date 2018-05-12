@@ -25,7 +25,6 @@ class MyTrapezium extends CGFobject {
 	};
 
 	initBuffers() {
-		console.log("hey");
 		this.vertices = [
 			0, 0, 0,
 			this.a, 0, 0, 
@@ -64,5 +63,21 @@ class MyTrapezium extends CGFobject {
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
+	}
+
+	getFrontEdgeAngle() {
+		return this.theta;
+	}
+
+	getBackEdgeAngle() {
+		// aux is the horizontal distance between the right-most side vertices
+		let aux = this.a - this.b - this.height/Math.tan(this.theta);
+		return Math.atan(this.height / aux);
+	}
+
+	getBackEdgeLenght() {
+		// aux is the horizontal distance between the right-most side vertices
+		let aux = this.a - this.b - this.height/Math.tan(this.theta);
+		return Math.sqrt(aux*aux + this.height*this.height);
 	}
 };
