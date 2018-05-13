@@ -10,6 +10,12 @@ class Roof extends CGFobject
 	constructor(scene, width, top_length, bottom_lenght, height){
         super(scene);
 
+        this.redAppearance = new CGFappearance(this.scene);
+		this.redAppearance.loadTexture("../textures/red.jpg");
+        this.redAppearance.setSpecular(0.1, 0.1, 0.1, 1);
+        this.redAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.redAppearance.setAmbient(0.6, 0.6, 0.6, 1);
+
         // declare dimension contants
         this.HEIGHT = height;
         this.WIDTH = width;
@@ -85,6 +91,7 @@ class Roof extends CGFobject
 
         // top roof
         this.scene.pushMatrix();
+            this.redAppearance.apply();
             this.scene.translate(this.HEIGHT/Math.tan(this.frontWindowAngle) + this.TOP_LENGTH/2, this.HEIGHT, this.WIDTH/2);
             this.scene.rotate(-Math.PI/2, 1, 0, 0);
             this.scene.scale(this.TOP_LENGTH, this.WIDTH, 0);

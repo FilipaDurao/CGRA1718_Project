@@ -22,7 +22,6 @@ class Wheel extends CGFobject
         this.tireSideAppearance.setAmbient(0.6, 0.6, 0.6, 1);
 
         this.janteAppearance = new CGFappearance(this.scene);
-		this.janteAppearance.loadTexture("../textures/janteTexture.jpg");
         this.janteAppearance.setSpecular(0.5, 0.5, 0.5, 1);
         this.janteAppearance.setDiffuse(1, 1, 1, 1);
         this.janteAppearance.setAmbient(0.6, 0.6, 0.6, 1);
