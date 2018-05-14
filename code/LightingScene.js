@@ -30,6 +30,7 @@ class LightingScene extends CGFscene
 		this.materialDefault = new CGFappearance(this);
 
 		this.initObjects();
+		this.initInterfaceVariables();
 
 		
 	};
@@ -41,7 +42,7 @@ class LightingScene extends CGFscene
 	initLights(){
 		this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
 
-		// Create light 0
+		// Create light 1
 		this.lights[0].setPosition(3, 4, 3, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 		this.lights[0].setAmbient(1.0, 1.0, 1.0, 1);
@@ -49,7 +50,7 @@ class LightingScene extends CGFscene
 		this.lights[0].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[0].enable();
 
-		// Create light 1
+		// Create light 2
 		this.lights[1].setPosition(3, 4, -3, 1);
 		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 		this.lights[1].setAmbient(1.0, 1.0, 1.0, 1);
@@ -57,35 +58,59 @@ class LightingScene extends CGFscene
 		this.lights[1].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[1].enable();
 
-		// Create light 2
+		// Create light 3
 		this.lights[2].setPosition(-3, 4, 3, 1);
 		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
 		this.lights[2].setAmbient(1.0, 1.0, 1.0, 1);
 		this.lights[2].setDiffuse(0.9, 0.9, 0.9, 1.0);
 		this.lights[2].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[2].enable();
-		
 
+		// Create light 4
+		this.lights[3].setPosition(-3, 4, -3, 1);
+		this.lights[3].setVisible(true); // show marker on light position (different from enabled)
+		this.lights[3].setAmbient(1.0, 1.0, 1.0, 1);
+		this.lights[3].setDiffuse(0.9, 0.9, 0.9, 1.0);
+		this.lights[3].setSpecular(0.5, 0.5, 0.5, 1.0);
+		this.lights[3].enable();
+	
 	};
 
 	initObjects() {
-		//this.wheel = new Wheel(this);
 		this.car = new MyVehicle(this);
 		this.floor = new MyTerrain(this);
-		//this.trapezium = new MyTrapezium(this, 5, 3, 1, 90);
 		
 		console.log(this.roof);
 	}
 
-	updateLights() 
-	{
+	initInterfaceVariables(){
+		this.Light1=true;
+		this.Light2=true;
+		this.Light3=true;
+		this.Light4=true;
+		this.speed=3;
+	}
+
+	toggleLight(lightIndex, turnOff){
+		if(turnOff){
+			lights[lightIndex].disable();
+		}
+		else{
+			lights[lightIndex].enable();
+		}
+	}
+
+	doSomething(){
+		console.log("Doing something..."); 
+	};
+
+	updateLights(){
 		for (var i = 0; i < this.lights.length; i++)
 			this.lights[i].update();
 	}
 
 
-	display() 
-	{
+	display(){
 		// ---- BEGIN Background, camera and axis setup
 
 		// Clear image and depth buffer everytime we update the scene
@@ -103,7 +128,7 @@ class LightingScene extends CGFscene
 		this.updateLights();
 
 		// Draw axis
-		//this.axis.display();
+		this.axis.display();
 
 		this.materialDefault.apply();
 
