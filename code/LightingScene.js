@@ -40,12 +40,12 @@ class LightingScene extends CGFscene
 	};
 
 	initLights(){
-		this.setGlobalAmbientLight(0.5,0.5,0.5, 1.0);
+		this.setGlobalAmbientLight(0.2,0.2,0.2, 1.0);
 
 		// Create light 1
 		this.lights[0].setPosition(3, 4, 3, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[0].setAmbient(1.0, 1.0, 1.0, 1);
+		this.lights[0].setAmbient(0.8, 0.8, 0.8, 1);
 		this.lights[0].setDiffuse(0.9, 0.9, 0.9, 1.0);
 		this.lights[0].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[0].enable();
@@ -53,7 +53,7 @@ class LightingScene extends CGFscene
 		// Create light 2
 		this.lights[1].setPosition(3, 4, -3, 1);
 		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[1].setAmbient(1.0, 1.0, 1.0, 1);
+		this.lights[1].setAmbient(0.8, 0.8, 0.8, 1);
 		this.lights[1].setDiffuse(0.9, 0.9, 0.9, 1.0);
 		this.lights[1].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[1].enable();
@@ -61,7 +61,7 @@ class LightingScene extends CGFscene
 		// Create light 3
 		this.lights[2].setPosition(-3, 4, 3, 1);
 		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[2].setAmbient(1.0, 1.0, 1.0, 1);
+		this.lights[2].setAmbient(0.8, 0.8, 0.8, 1);
 		this.lights[2].setDiffuse(0.9, 0.9, 0.9, 1.0);
 		this.lights[2].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[2].enable();
@@ -69,7 +69,7 @@ class LightingScene extends CGFscene
 		// Create light 4
 		this.lights[3].setPosition(-3, 4, -3, 1);
 		this.lights[3].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[3].setAmbient(1.0, 1.0, 1.0, 1);
+		this.lights[3].setAmbient(0.8, 0.8, 0.8, 1);
 		this.lights[3].setDiffuse(0.9, 0.9, 0.9, 1.0);
 		this.lights[3].setSpecular(0.5, 0.5, 0.5, 1.0);
 		this.lights[3].enable();
@@ -79,8 +79,7 @@ class LightingScene extends CGFscene
 	initObjects() {
 		this.car = new MyVehicle(this);
 		this.floor = new MyTerrain(this);
-		
-		console.log(this.roof);
+		this.rear = new RearMirror(this);
 	}
 
 	initInterfaceVariables(){
@@ -91,17 +90,17 @@ class LightingScene extends CGFscene
 		this.speed=3;
 	}
 
-	toggleLight(lightIndex, turnOff){
-		if(turnOff){
-			lights[lightIndex].disable();
+	toggleLight(lightIndex, turnOn){
+		if(turnOn){
+			this.lights[lightIndex].disable();
 		}
 		else{
-			lights[lightIndex].enable();
+			this.lights[lightIndex].enable();
 		}
 	}
 
-	doSomething(){
-		console.log("Doing something..."); 
+	toggleAxis(){
+		this.visibleAxis = !this.visibleAxis;
 	};
 
 	updateLights(){
@@ -127,8 +126,12 @@ class LightingScene extends CGFscene
 		// Update all lights used
 		this.updateLights();
 
+		var visibleAxis = false;
+
 		// Draw axis
-		this.axis.display();
+		if(this.visibleAxis){
+			this.axis.display();
+		}
 
 		this.materialDefault.apply();
 
@@ -143,6 +146,10 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 			this.floor.display();
 		this.popMatrix();
+
+		/*this.pushMatrix();
+			this.rear.display();
+		this.popMatrix();*/
 
 		// ---- END Scene drawing section
 	};

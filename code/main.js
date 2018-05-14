@@ -18,6 +18,7 @@ serialInclude([
 	"MyTriangle.js",
 	'MyTrapezium.js',
 	'Roof.js',
+	'RearMirror.js',
 	'MyInterface.js',
 
 	main=function() {

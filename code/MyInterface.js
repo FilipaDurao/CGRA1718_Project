@@ -23,12 +23,7 @@ class MyInterface extends CGFinterface {
 
 		this.gui = new dat.GUI();
 
-		// add a button:
-		// the first parameter is the object that is being controlled (in this case the scene)
-		// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
-		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
-
-		this.gui.add(this.scene, 'doSomething');
+		this.initAxisButton();
 		
 		this.initLightsFolder();
 
@@ -61,6 +56,15 @@ class MyInterface extends CGFinterface {
 		};
 	};
 
+	initAxisButton(){
+		// add a button:
+		// the first parameter is the object that is being controlled (in this case the scene)
+		// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
+		// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
+
+		this.gui.add(this.scene, 'toggleAxis');
+	}
+
 	initLightsFolder(){
 		// add a group of controls (and open/expand by default)
 		var group=this.gui.addFolder("Lights");
@@ -69,10 +73,41 @@ class MyInterface extends CGFinterface {
 		// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 		// e.g. this.option1=true; this.option2=false;
 
-		group.add(this.scene, 'Light1');
-		group.add(this.scene, 'Light2');
-		group.add(this.scene, 'Light3');
-		group.add(this.scene, 'Light4');
+		group.add(this.scene, 'Light1').onChange(()=>{
+			if(this.scene.Light1){
+				this.scene.toggleLight(0, false);
+			}
+			else{
+				this.scene.toggleLight(0, true);
+			}
+		});
+
+		group.add(this.scene, 'Light2').onChange(()=>{
+			if(this.scene.Light2){
+				this.scene.toggleLight(1, false);
+			}
+			else{
+				this.scene.toggleLight(1, true);
+			}
+		});
+
+		group.add(this.scene, 'Light3').onChange(()=>{
+			if(this.scene.Light3){
+				this.scene.toggleLight(2, false);
+			}
+			else{
+				this.scene.toggleLight(2, true);
+			}
+		});
+		
+		group.add(this.scene, 'Light4').onChange(()=>{
+			if(this.scene.Light4){
+				this.scene.toggleLight(3, false);
+			}
+			else{
+				this.scene.toggleLight(3, true);
+			}
+		});
 	}
 
 
