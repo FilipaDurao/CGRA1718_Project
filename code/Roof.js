@@ -32,7 +32,7 @@ class Roof extends CGFobject
         // init some objects
         // one trapezium prism
         // front and back windows. two windows per side
-        this.roofBody = new MyTrapeziumPrism(this.scene, base_width, top_width, 45, height, length);
+        this.roofBody = new MyTrapeziumPrism(this.scene, base_width, top_width, this.SLANG, height, length);
         this.frontWindow = new Plane(this.scene);
         this.backWindow = new Plane(this.scene);
     }
@@ -55,10 +55,22 @@ class Roof extends CGFobject
         this.scene.pushMatrix();
             this.scene.translate(-0.01, 0, 0); // just a small shift, so that the panel is above the trapezium (avoid glitches)    
             this.scene.rotate(this.roofBody.getFrontPanelAngle(), 0, 0, 1);
-            this.scene.translate(0, frontWindowHeight/2 + verticalMargin,frontWindowWidth/2 + horizontalMargin);
+            this.scene.translate(0, frontWindowHeight/2 + verticalMargin, frontWindowWidth/2 + horizontalMargin);
             this.scene.scale(0, frontWindowHeight, frontWindowWidth); 
             this.scene.rotate(-Math.PI/2, 0, 1, 0);
             this.frontWindow.display();
+        this.scene.popMatrix();
+
+        // the back window
+        let backWindowHeight = this.roofBody.getBackPanelLength() - verticalMargin*2;
+        let backWindowWidth = this.LENGTH - horizontalMargin*2;
+        this.scene.pushMatrix();
+            this.scene.translate(this.BASE_WIDTH + 0.01, 0, 0); // just a small shift, so that the panel is above the trapezium (avoid glitches)    
+            this.scene.rotate(this.roofBody.getBackPanelAngle(), 0, 0, 1);
+            this.scene.translate(0, backWindowHeight/2 + verticalMargin, backWindowWidth/2 + horizontalMargin);
+            this.scene.scale(0, backWindowHeight, backWindowWidth); 
+            this.scene.rotate(Math.PI/2, 0, 1, 0);
+            this.backWindow.display();
         this.scene.popMatrix();
     }
 
