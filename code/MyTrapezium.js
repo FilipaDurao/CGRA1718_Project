@@ -8,28 +8,27 @@ class MyTrapezium extends CGFobject {
     /**
      * Constructor
      * @param {*} scene 
-     * @param {*} a The bottom base width
-     * @param {*} b The top base width
+     * @param {*} base_width The bottom base width
+     * @param {*} top_width The top base width
      * @param {*} height The vertical height
-     * @param {*} theta The angle between the left-most vertices of edges 'a' and 'b' (degrees)
+     * @param {*} theta The left-most internal angle between top and base
      */
-	constructor(scene, a, b, height, theta) {
+	constructor(scene, base_width, top_width, height, theta) {
 		super(scene);
         
-        this.a = a;
-        this.b = b;
+        this.base_width = base_width;
+        this.top_width = top_width;
         this.height = height;
         this.theta = theta*Math.PI/180;
-
 		this.initBuffers();
 	};
 
 	initBuffers() {
 		this.vertices = [
 			0, 0, 0,
-			this.a, 0, 0, 
+			this.base_width, 0, 0, 
 			this.height/Math.tan(this.theta), this.height, 0, 
-			this.height/Math.tan(this.theta) + this.b, this.height, 0
+			this.height/Math.tan(this.theta) + this.top_width, this.height, 0
 		];
 
 		this.indices = [
@@ -65,19 +64,37 @@ class MyTrapezium extends CGFobject {
 		this.initGLBuffers();
 	}
 
+	/**
+	 * Returns the front edge slane relative to the vertical line (radians)
+	 */
 	getFrontEdgeAngle() {
-		return this.theta;
+		// aux is the horizontal distance between the left-most side vertices
+		let aux = this.vertices[6] - this.vertices[0];
+		return Math.atan(aux / this.height);
 	}
 
+	/**
+	 * Returns the back edge slane relative to the vertical line (radians)
+	 */
 	getBackEdgeAngle() {
 		// aux is the horizontal distance between the right-most side vertices
-		let aux = this.a - this.b - this.height/Math.tan(this.theta);
-		return Math.atan(this.height / aux);
+		let aux = this.vertices[3] - this.vertices[9];
+		return Math.atan(aux / this.height);
 	}
 
+	/**
+	 * Returns the lenght of the back edge
+	 */
 	getBackEdgeLenght() {
 		// aux is the horizontal distance between the right-most side vertices
-		let aux = this.a - this.b - this.height/Math.tan(this.theta);
+		let aux = this.base_width - this.top_width - this.height/Math.tan(this.theta);
 		return Math.sqrt(aux*aux + this.height*this.height);
+	}
+
+	/**
+	 * Returns the front edge lenght
+	 */
+	getFrontEdgeLenght() {
+		return this.height / Math.sin(this.theta);
 	}
 };
