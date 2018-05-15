@@ -95,4 +95,12 @@ class MyTrapeziumPrism extends CGFobject {
             this.backPlane.display();
         this.scene.popMatrix();
     }
+
+    getFrontPanelAngle() {
+        return this.lateralTrapezium1.getFrontEdgeAngle();
+    }
+
+    getFrontPanelLength() {
+        return this.lateralTrapezium1.getBackEdgeLenght();
+    }
 };
