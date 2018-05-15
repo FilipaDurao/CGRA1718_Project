@@ -43,22 +43,7 @@ class MyTrapeziumPrism extends CGFobject {
         this.backPlane = new Plane(scene);
     };
     
-	getFrontEdgeAngle() {
-		return this.theta;
-	}
 
-	getBackEdgeAngle() {
-		// aux is the horizontal distance between the right-most side vertices
-		let aux = this.a - this.b - this.height/Math.tan(this.theta);
-		return Math.atan(this.height / aux);
-	}
-
-	getBackEdgeLenght() {
-		// aux is the horizontal distance between the right-most side vertices
-		let aux = this.a - this.b - this.height/Math.tan(this.theta);
-		return Math.sqrt(aux*aux + this.height*this.height);
-    }
-    
     display(){
         // lateral trapeziums
         this.scene.pushMatrix();
