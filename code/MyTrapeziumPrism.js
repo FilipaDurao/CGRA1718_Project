@@ -98,48 +98,16 @@ class MyTrapeziumPrism extends CGFobject {
             this.frontPlane.display();
         this.scene.popMatrix();
 
+
         let back_slane_lenght = this.lateralTrapezium1.getBackEdgeLenght();
         let back_slane_angle = this.lateralTrapezium1.getBackEdgeAngle();
-        console.log(this.lateralTrapezium1);
-        let teste = new CGFappearance(this.scene);
-        teste.setAmbient(0.8,0,0,1);
         this.scene.pushMatrix();
-            teste.apply();
             this.scene.translate(this.BASE_WIDTH, 0, this.LENGTH/2);
-            this.scene.rotate(this.ANGLE, 0, 0, 1);
+            this.scene.rotate(back_slane_angle, 0, 0, 1);
             this.scene.translate(0, back_slane_lenght/2, 0);
             this.scene.scale(0, back_slane_lenght, this.LENGTH);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
             this.backPlane.display();
         this.scene.popMatrix();
-       /*
-        // back window
-        let backWindowAngle = Math.PI/2 - this.lateralPanel1.getBackEdgeAngle();
-        let bwin_lenght = this.lateralPanel1.getBackEdgeLenght();
-        this.scene.pushMatrix();
-            this.scene.translate(this.BOTTOM_LENGTH, 0, this.WIDTH/2);
-            this.scene.rotate(backWindowAngle, 0, 0, 1);
-            this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.scene.translate(0, bwin_lenght/2, 0);
-            this.scene.scale(this.WIDTH, bwin_lenght, 0);
-            this.backWindow.display();
-        this.scene.popMatrix();
-
-        
-
-        // windows 
-        this.windowAppearance.apply();
-        
-        // front window
-        let fwindow_lenght = this.FRONT_WINDOW_HEIGHT/Math.sin(this.frontWindowAngle);
-        this.scene.pushMatrix();
-            this.scene.translate(0, 0, this.WIDTH/2);
-            this.scene.rotate(-this.frontWindowAngle, 0, 0, 1);
-            this.scene.rotate(-Math.PI/2, 0, 1, 0);
-            this.scene.translate(0, fwindow_lenght/2, 0);
-            this.scene.scale(this.FRONT_WINDOW_WIDTH, fwindow_lenght, 0);
-            this.frontPanel.display();
-        this.scene.popMatrix();
-        */
     }
 };
