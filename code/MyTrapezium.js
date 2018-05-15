@@ -69,7 +69,7 @@ class MyTrapezium extends CGFobject {
 	 */
 	getFrontEdgeAngle() {
 		// aux is the horizontal distance between the left-most side vertices
-		let aux = this.vertices[6] - this.vertices[0];
+		let aux = this.vertices[0] - this.vertices[6];
 		return Math.atan(aux / this.height);
 	}
 
