@@ -28,6 +28,7 @@ class MyVehicle extends CGFobject
 
 		// Roof
 		this.scene.pushMatrix();
+			this.redAppearance.apply();
 			this.scene.translate(0, 0, 1);
 			this.scene.translate(0, 1, ROOF_BOTTOM_LENGHT)
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
