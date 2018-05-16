@@ -32,10 +32,14 @@ class Roof extends CGFobject
         // init some objects
         // one trapezium prism
         // front and back windows. two windows per side
-        this.roofBody = new MyTrapeziumPrism(this.scene, base_width, top_width, this.SLANG, height, length);
+        this.roofBody = new MyTrapeziumPrism(this.scene, this.BASE_WIDTH, this.TOP_WIDTH, this.SLANG, this.HEIGHT, this.LENGTH);
         this.frontWindow = new Plane(this.scene);
         this.backWindow = new Plane(this.scene);
-        this.frontLeftWindow = new MyTrapezium(this.scene, 2, 1, 0.7, this.SLANG);
+        this.lateralLeftWindow = new MyTrapezium(this.scene, this.BASE_WIDTH, this.TOP_WIDTH, this.HEIGHT, this.SLANG);
+        this.lateralRightWindow = new MyTrapezium(this.scene, this.BASE_WIDTH, this.TOP_WIDTH, this.HEIGHT, this.SLANG);
+        
+        // invert right window
+        this.lateralRightWindow.invert();
     }
 
     display(){
@@ -72,6 +76,22 @@ class Roof extends CGFobject
             this.scene.scale(0, backWindowHeight, backWindowWidth); 
             this.scene.rotate(Math.PI/2, 0, 1, 0);
             this.backWindow.display();
+        this.scene.popMatrix();
+
+        // lateral window left
+        // a ratio to shrink the window such that vertical lenght is the same as other windows
+        let ratio = frontWindowHeight*Math.sin(this.SLANG*degToRad)/this.HEIGHT;
+        this.scene.pushMatrix();
+            this.scene.translate((this.BASE_WIDTH-this.BASE_WIDTH*ratio)/2, (this.HEIGHT-this.HEIGHT*ratio)/2, this.LENGTH + 0.01); // align to the center
+            this.scene.scale(ratio, ratio, 1);
+            this.lateralLeftWindow.display();
+        this.scene.popMatrix();
+
+        // lateral window right
+        this.scene.pushMatrix();
+            this.scene.translate((this.BASE_WIDTH-this.BASE_WIDTH*ratio)/2, (this.HEIGHT-this.HEIGHT*ratio)/2, -0.01); // align to the center
+            this.scene.scale(ratio, ratio, 1);
+            this.lateralRightWindow.display();
         this.scene.popMatrix();
     }
 

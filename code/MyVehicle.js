@@ -7,7 +7,7 @@ class MyVehicle extends CGFobject
         this.backWheel = new Wheel(this.scene);
         this.tri = new MyTriangle(this.scene, 1, 1, 1);
 		//scene, width, top_length, bottom_lenght, height
-		this.roof = new Roof(this.scene, 1, 2.74, 1, 1.6);
+		this.roof = new Roof(this.scene, 1, 3, 1, 1.6);
 
 		this.redAppearance = new CGFappearance(this.scene);
 		this.redAppearance.loadTexture("../textures/red.jpg");
