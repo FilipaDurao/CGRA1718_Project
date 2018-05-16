@@ -1,3 +1,4 @@
+var degToRad = Math.PI / 180.0;
 class LightingScene extends CGFscene 
 {
 	constructor()
@@ -75,9 +76,8 @@ class LightingScene extends CGFscene
 	};
 
 	initObjects() {
-		//this.car = new MyVehicle(this);
+		this.car = new MyVehicle(this);
 		this.floor = new MyTerrain(this);
-		this.roof = new Roof(this, 3, 5, 1, 2);
 	}
 
 	initInterfaceVariables(){
@@ -134,7 +134,7 @@ class LightingScene extends CGFscene
 		// ---- BEGIN Scene drawing section
 
 		this.pushMatrix();
-			this.roof.display();
+			this.car.display();
 		this.popMatrix();
 
 		this.pushMatrix();
