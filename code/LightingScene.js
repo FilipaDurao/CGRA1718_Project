@@ -83,6 +83,11 @@ class LightingScene extends CGFscene
 	initObjects() {
 		this.car = new MyVehicle(this);
 		this.floor = new MyTerrain(this);
+
+		// request objects by teacher
+		this.myTrapezium = new MyTrapeziumPrism(this, 5, 3, 45, 2, 2);
+		this.myCylinder = new MyCylinder(this, 20, 5);
+		this.mySemiSphere = new SemiSphere(this, 20, 5);
 	}
 
 	updateLights(){
@@ -177,6 +182,34 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 			this.floor.display();
 		this.popMatrix();
+
+		if(this.showObjects) {
+			// apply texture TODO
+			this.materialDefault.apply();
+
+			// change camera
+			//this.camera.setPosition(vec3.fromValues(-10, 0, -15));
+			//this.camera.setTarget(vec3.fromValues(-20, 0, -15));
+			
+			// transformations
+			this.pushMatrix();
+				this.translate(-15,0,-20);
+				this.myTrapezium.display();
+			this.popMatrix();
+
+			this.pushMatrix();
+				this.scale(1,10,1);
+				this.translate(-17,0,-20);
+				this.rotate(-Math.PI/2, 1, 0, 0);
+				this.myCylinder.display();
+			this.popMatrix();
+
+			this.pushMatrix();
+				this.translate(-20,0,-20);
+				this.rotate(-Math.PI/2, 1, 0, 0);
+				this.mySemiSphere.display();
+			this.popMatrix();
+		}
 		// ---- END Scene drawing section
 	};
 };
