@@ -29,7 +29,7 @@ class LightingScene extends CGFscene
 
 		this.initObjects();
 		this.initInterfaceVariables();
-
+		this.initAppearance();
 		
 	};
 
@@ -88,6 +88,11 @@ class LightingScene extends CGFscene
 		this.myTrapezium = new MyTrapeziumPrism(this, 5, 3, 45, 2, 2);
 		this.myCylinder = new MyCylinder(this, 20, 5);
 		this.mySemiSphere = new SemiSphere(this, 20, 5);
+	}
+
+	initAppearance() {
+		this.feupTexture = new CGFappearance(this);
+		this.feupTexture.loadTexture("../textures/feuplogo.jpg");
 	}
 
 	updateLights(){
@@ -185,7 +190,7 @@ class LightingScene extends CGFscene
 
 		if(this.showObjects) {
 			// apply texture TODO
-			this.materialDefault.apply();
+			this.feupTexture.apply();
 
 			// change camera
 			//this.camera.setPosition(vec3.fromValues(-10, 0, -15));
