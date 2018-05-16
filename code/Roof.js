@@ -35,6 +35,7 @@ class Roof extends CGFobject
         this.roofBody = new MyTrapeziumPrism(this.scene, base_width, top_width, this.SLANG, height, length);
         this.frontWindow = new Plane(this.scene);
         this.backWindow = new Plane(this.scene);
+        this.frontLeftWindow = new MyTrapezium(this.scene, 2, 1, 0.7, this.SLANG);
     }
 
     display(){
