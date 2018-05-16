@@ -7,7 +7,7 @@ class MyVehicle extends CGFobject
         this.backWheel = new Wheel(this.scene);
         this.tri = new MyTriangle(this.scene, 1, 1, 1);
 		//scene, width, top_length, bottom_lenght, height
-		this.roof = new Roof(this.scene, 1.6, 1.5, 2.75, 1);
+		this.roof = new Roof(this.scene, 1, 3, 1, 1.6);
 
 		this.redAppearance = new CGFappearance(this.scene);
 		this.redAppearance.loadTexture("../textures/red.jpg");
@@ -28,6 +28,7 @@ class MyVehicle extends CGFobject
 
 		// Roof
 		this.scene.pushMatrix();
+			this.redAppearance.apply();
 			this.scene.translate(0, 0, 1);
 			this.scene.translate(0, 1, ROOF_BOTTOM_LENGHT)
 			this.scene.rotate(Math.PI/2, 0, 1, 0);

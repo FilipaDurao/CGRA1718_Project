@@ -1,6 +1,4 @@
 var degToRad = Math.PI / 180.0;
-var BOARD_B_DIVISIONS = 100;
-
 class LightingScene extends CGFscene 
 {
 	constructor()
@@ -43,35 +41,41 @@ class LightingScene extends CGFscene
 		this.setGlobalAmbientLight(0.2,0.2,0.2, 1.0);
 
 		// Create light 1
-		this.lights[0].setPosition(3, 4, 3, 1);
+		this.lights[0] = new CGFlight(this, 0);
+		this.lights[0].setPosition(0, 5, 0, 1);
 		this.lights[0].setVisible(true); // show marker on light position (different from enabled)
 		this.lights[0].setAmbient(0.8, 0.8, 0.8, 1);
-		this.lights[0].setDiffuse(0.9, 0.9, 0.9, 1.0);
-		this.lights[0].setSpecular(0.5, 0.5, 0.5, 1.0);
+		this.lights[0].setDiffuse(0.5, 0.5, 0.5, 1.0);
+		this.lights[0].setSpecular(1, 1, 1, 1.0);
+		this.lights[0].setLinearAttenuation(0.1);
 		this.lights[0].enable();
 
 		// Create light 2
-		this.lights[1].setPosition(3, 4, -3, 1);
+		
+		this.lights[1].setPosition(10, 20, -10, 1);
 		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[1].setAmbient(0.8, 0.8, 0.8, 1);
-		this.lights[1].setDiffuse(0.9, 0.9, 0.9, 1.0);
-		this.lights[1].setSpecular(0.5, 0.5, 0.5, 1.0);
+		this.lights[1].setAmbient(0.5, 0.5, 0.5, 1);
+		this.lights[1].setDiffuse(0.3, 0.3, 0.3, 1.0);
+		this.lights[1].setSpecular(0.15, 0.15, 0.15, 1.0);
+		this.lights[1].setLinearAttenuation(0.1);
 		this.lights[1].enable();
-
+		
 		// Create light 3
-		this.lights[2].setPosition(-3, 4, 3, 1);
+		this.lights[2].setPosition(-10, 20, 10, 1);
 		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[2].setAmbient(0.8, 0.8, 0.8, 1);
-		this.lights[2].setDiffuse(0.9, 0.9, 0.9, 1.0);
-		this.lights[2].setSpecular(0.5, 0.5, 0.5, 1.0);
+		this.lights[2].setAmbient(0.5, 0.5, 0.5, 1);
+		this.lights[2].setDiffuse(0.3, 0.3, 0.3, 1.0);
+		this.lights[2].setSpecular(0.15, 0.15, 0.15, 1.0);
+		this.lights[2].setLinearAttenuation(0.1);
 		this.lights[2].enable();
 
 		// Create light 4
-		this.lights[3].setPosition(-3, 4, -3, 1);
+		this.lights[3].setPosition(-10, 20, -10, 1);
 		this.lights[3].setVisible(true); // show marker on light position (different from enabled)
-		this.lights[3].setAmbient(0.8, 0.8, 0.8, 1);
-		this.lights[3].setDiffuse(0.9, 0.9, 0.9, 1.0);
-		this.lights[3].setSpecular(0.5, 0.5, 0.5, 1.0);
+		this.lights[3].setAmbient(0.5, 0.5, 0.5, 1);
+		this.lights[3].setDiffuse(0.3, 0.3, 0.3, 1.0);
+		this.lights[3].setSpecular(0.15, 0.15, 0.15, 1.0);
+		this.lights[3].setLinearAttenuation(0.1);
 		this.lights[3].enable();
 	
 	};
@@ -79,7 +83,6 @@ class LightingScene extends CGFscene
 	initObjects() {
 		this.car = new MyVehicle(this);
 		this.floor = new MyTerrain(this);
-		this.rear = new RearMirror(this);
 	}
 
 	initInterfaceVariables(){
@@ -146,11 +149,6 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 			this.floor.display();
 		this.popMatrix();
-
-		/*this.pushMatrix();
-			this.rear.display();
-		this.popMatrix();*/
-
 		// ---- END Scene drawing section
 	};
 };

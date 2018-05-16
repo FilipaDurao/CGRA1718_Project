@@ -3,107 +3,97 @@ class Roof extends CGFobject
     /**
      * Constructor
      * @param {*} scene 
-     * @param {*} width The width (seen from the car front) 
-     * @param {*} length The length (seen from car sides)
-     * @param {*} height The height
+     * @param {Number} top_width 
+     * @param {Number} base_width 
+     * @param {Number} height 
+     * @param {Number} length 
      */
-	constructor(scene, width, top_length, bottom_lenght, height){
+	constructor(scene, top_width, base_width, height, length){
         super(scene);
 
+        // set the roof properties
+        this.TOP_WIDTH = top_width;
+        this.BASE_WIDTH = base_width;
+        this.HEIGHT = height;
+        this.LENGTH = length;
+        this.SLANG = 45;
+
+        // the appereance, this will probably change later on
         this.redAppearance = new CGFappearance(this.scene);
 		this.redAppearance.loadTexture("../textures/red.jpg");
-        this.redAppearance.setSpecular(0.1, 0.1, 0.1, 1);
+        this.redAppearance.setSpecular(0.3, 0.3, 0.3, 1);
         this.redAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.redAppearance.setAmbient(0.6, 0.6, 0.6, 1);
 
-        // declare dimension contants
-        this.HEIGHT = height;
-        this.WIDTH = width;
-        this.TOP_LENGTH = top_length;
-        this.BOTTOM_LENGTH = bottom_lenght;
-        this.frontWindowAngle = Math.PI*45/180; // the horizontal angle with car body
+        // windows appearance
+        this.windowAppearance = new CGFappearance(this.scene);
+        this.windowAppearance.setAmbient(155/255,209/255,225/255, 1);
+        this.windowAppearance.setDiffuse(155/255,209/255,225/255, 1);
+        this.windowAppearance.setSpecular(184/255, 255/255, 250/255, 1);
+        //this.windowAppearance.setShininess(100);
+        // init some objects
+        // one trapezium prism
+        // front and back windows. two windows per side
+        this.roofBody = new MyTrapeziumPrism(this.scene, this.BASE_WIDTH, this.TOP_WIDTH, this.SLANG, this.HEIGHT, this.LENGTH);
+        this.frontWindow = new Plane(this.scene);
+        this.backWindow = new Plane(this.scene);
+        this.lateralLeftWindow = new MyTrapezium(this.scene, this.BASE_WIDTH, this.TOP_WIDTH, this.HEIGHT, this.SLANG);
+        this.lateralRightWindow = new MyTrapezium(this.scene, this.BASE_WIDTH, this.TOP_WIDTH, this.HEIGHT, this.SLANG);
+        
+        // invert right window
+        this.lateralRightWindow.invert();
+    }
 
-        // front window
-        this.frontWindow = new MyQuad(scene, 0, 1, 0, 1);
-
-        // back window
-        this.backWindow = new MyQuad(scene, 0, 1, 0, 1);
-
-        // lateral window 1
-        this.lateralWindow1 = new MyTrapezium(
-            scene, 
-            bottom_lenght, 
-            top_length,
-            height,
-            this.frontWindowAngle * 180/Math.PI 
-        );
-
-        // lateral window 2
-        this.lateralWindow2 = new MyTrapezium(
-            scene, 
-            bottom_lenght, 
-            top_length,
-            height,
-            this.frontWindowAngle * 180/Math.PI 
-        );
-        this.lateralWindow2.invert();
-
-        // top 
-        this.roofTop = new MyQuad(scene);
-
-        // bottom
-        this.roofBottom = new MyQuad(scene);
-    };
-    
     display(){
-        // lateral windows
+        // the main body structure
         this.scene.pushMatrix();
-            this.scene.translate(0, 0, this.WIDTH);
-            this.lateralWindow1.display();
+            this.roofBody.display(); 
         this.scene.popMatrix();
 
-        this.scene.pushMatrix();
-            this.lateralWindow2.display();
-        this.scene.popMatrix();
+        this.windowAppearance.apply();
+        
+        // define the front and back windows margins
+        let verticalMargin = 0.15; // margin applied at top and bottom
+        let horizontalMargin = 0.1; // margin applied at both sides
 
-        // front window
-        let fwin_lenght = this.HEIGHT/Math.sin(this.frontWindowAngle);
+        // the front window
+        let frontWindowHeight = this.roofBody.getFrontPanelLength() - verticalMargin*2;
+        let frontWindowWidth = this.LENGTH - horizontalMargin*2;
         this.scene.pushMatrix();
-            this.scene.translate(0, 0, this.WIDTH/2);
-            this.scene.rotate(-this.frontWindowAngle, 0, 0, 1);
+            this.scene.translate(-0.01, 0, 0); // just a small shift, so that the panel is above the trapezium (avoid glitches)    
+            this.scene.rotate(this.roofBody.getFrontPanelAngle(), 0, 0, 1);
+            this.scene.translate(0, frontWindowHeight/2 + verticalMargin, frontWindowWidth/2 + horizontalMargin);
+            this.scene.scale(0, frontWindowHeight, frontWindowWidth); 
             this.scene.rotate(-Math.PI/2, 0, 1, 0);
-            this.scene.translate(0, fwin_lenght/2, 0);
-            this.scene.scale(this.WIDTH, fwin_lenght, 0);
             this.frontWindow.display();
         this.scene.popMatrix();
 
-        // back window
-        let backWindowAngle = Math.PI/2 - this.lateralWindow1.getBackEdgeAngle();
-        let bwin_lenght = this.lateralWindow1.getBackEdgeLenght();
+        // the back window
+        let backWindowHeight = this.roofBody.getBackPanelLength() - verticalMargin*2;
+        let backWindowWidth = this.LENGTH - horizontalMargin*2;
         this.scene.pushMatrix();
-            this.scene.translate(this.BOTTOM_LENGTH, 0, this.WIDTH/2);
-            this.scene.rotate(backWindowAngle, 0, 0, 1);
+            this.scene.translate(this.BASE_WIDTH + 0.01, 0, 0); // just a small shift, so that the panel is above the trapezium (avoid glitches)    
+            this.scene.rotate(this.roofBody.getBackPanelAngle(), 0, 0, 1);
+            this.scene.translate(0, backWindowHeight/2 + verticalMargin, backWindowWidth/2 + horizontalMargin);
+            this.scene.scale(0, backWindowHeight, backWindowWidth); 
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.scene.translate(0, bwin_lenght/2, 0);
-            this.scene.scale(this.WIDTH, bwin_lenght, 0);
             this.backWindow.display();
         this.scene.popMatrix();
 
-        // top roof
+        // lateral window left
+        // a ratio to shrink the window such that vertical lenght is the same as other windows
+        let ratio = frontWindowHeight*Math.sin(this.SLANG*degToRad)/this.HEIGHT;
         this.scene.pushMatrix();
-            this.redAppearance.apply();
-            this.scene.translate(this.HEIGHT/Math.tan(this.frontWindowAngle) + this.TOP_LENGTH/2, this.HEIGHT, this.WIDTH/2);
-            this.scene.rotate(-Math.PI/2, 1, 0, 0);
-            this.scene.scale(this.TOP_LENGTH, this.WIDTH, 0);
-            this.roofTop.display();
+            this.scene.translate((this.BASE_WIDTH-this.BASE_WIDTH*ratio)/2, (this.HEIGHT-this.HEIGHT*ratio)/2, this.LENGTH + 0.01); // align to the center
+            this.scene.scale(ratio, ratio, 1);
+            this.lateralLeftWindow.display();
         this.scene.popMatrix();
 
-        // bottom
+        // lateral window right
         this.scene.pushMatrix();
-            this.scene.translate(this.BOTTOM_LENGTH/2, 0, this.WIDTH/2);
-            this.scene.rotate(Math.PI/2, 1, 0, 0);
-            this.scene.scale(this.BOTTOM_LENGTH, this.WIDTH, 0);
-            this.roofBottom.display();
+            this.scene.translate((this.BASE_WIDTH-this.BASE_WIDTH*ratio)/2, (this.HEIGHT-this.HEIGHT*ratio)/2, -0.01); // align to the center
+            this.scene.scale(ratio, ratio, 1);
+            this.lateralRightWindow.display();
         this.scene.popMatrix();
     }
 
