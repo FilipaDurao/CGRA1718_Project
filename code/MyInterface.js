@@ -22,17 +22,10 @@ class MyInterface extends CGFinterface {
 		//  http://workshop.chromeexperiments.com/examples/gui
 
 		this.gui = new dat.GUI();
-
 		this.initAxisButton();
-		
 		this.initLightsFolder();
-
-		// add a slider
-		// must be a numeric variable of the scene, initialized in scene.init e.g.
-		// this.speed=3;
-		// min and max values can be specified as parameters
-
-		this.gui.add(this.scene, 'speed', -5, 5);
+		this.initSpeedSlider(-5,5);
+		this.initObjectsToggle();
 
 		return true;
 	};
@@ -108,6 +101,19 @@ class MyInterface extends CGFinterface {
 				this.scene.toggleLight(3, true);
 			}
 		});
+	}
+
+	initSpeedSlider(min, max) {
+		// add a slider
+		// must be a numeric variable of the scene, initialized in scene.init e.g.
+		// this.speed=3;
+		// min and max values can be specified as parameters
+
+		this.gui.add(this.scene, 'speed', min, max);
+	}
+
+	initObjectsToggle() {
+		this.gui.add(this.scene, 'showObjects');
 	}
 
 

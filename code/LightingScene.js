@@ -85,14 +85,37 @@ class LightingScene extends CGFscene
 		this.floor = new MyTerrain(this);
 	}
 
-	initInterfaceVariables(){
-		this.Light1=true;
-		this.Light2=true;
-		this.Light3=true;
-		this.Light4=true;
-		this.speed=3;
+	updateLights(){
+		for (var i = 0; i < this.lights.length; i++)
+			this.lights[i].update();
 	}
 
+	/*
+	+----------------------------------+
+	|                                  |
+	|               GUI                |
+	|                                  |
+	+----------------------------------+
+	*/
+
+	/**
+	 * Declares and defines a set of variables for GUI controller
+	 */
+	initInterfaceVariables(){
+		this.Light1 = true;
+		this.Light2 = true;
+		this.Light3 = true;
+		this.Light4 = true;
+		this.speed = 3;
+		this.showObjects = false;
+		this.visibleAxis = false;
+	}
+
+	/**
+	 * Toggles the lights on the scene (GUI)
+	 * @param {number} lightIndex The light index
+	 * @param {boolean} turnOn true to enable the light, false otherwise
+	 */
 	toggleLight(lightIndex, turnOn){
 		if(turnOn){
 			this.lights[lightIndex].disable();
@@ -102,16 +125,23 @@ class LightingScene extends CGFscene
 		}
 	}
 
+	/**
+	 * Shows/hides the scene axis (GUI)
+	 */
 	toggleAxis(){
 		this.visibleAxis = !this.visibleAxis;
 	};
 
-	updateLights(){
-		for (var i = 0; i < this.lights.length; i++)
-			this.lights[i].update();
+	/**
+	 * Shows/hides some objects on scene (GUI)
+	 * The objects are: one semi-sphere, one trapezium prism and one cylinder
+	 * All these objects have a texture applied
+	 */
+	toggleSceneObjects() {
+		this.showObjects = !this.showObjects; 
 	}
 
-
+	
 	display(){
 		// ---- BEGIN Background, camera and axis setup
 
@@ -128,8 +158,6 @@ class LightingScene extends CGFscene
 
 		// Update all lights used
 		this.updateLights();
-
-		var visibleAxis = false;
 
 		// Draw axis
 		if(this.visibleAxis){
