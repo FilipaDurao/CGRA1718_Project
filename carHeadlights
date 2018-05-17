@@ -1,0 +1,18 @@
+
+
+
+
+
+this.lights = new Headlights(this.scene);
+
+this.scene.pushMatrix();
+	this.scene.translate(WIDTH/6, 0.5, LENGTH);
+	this.scene.scale(0.18, 0.18, 0.1);
+	this.lights.display();
+this.scene.popMatrix();
+
+this.scene.pushMatrix();
+	this.scene.translate(WIDTH*5/6, 0.5, LENGTH);
+	this.scene.scale(0.18, 0.18, 0.1);
+	this.lights.display();
+this.scene.popMatrix();

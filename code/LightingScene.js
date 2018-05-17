@@ -184,9 +184,9 @@ class LightingScene extends CGFscene
 			this.car.display();
 		this.popMatrix();
 
-		this.pushMatrix();
+		/*this.pushMatrix();
 			this.floor.display();
-		this.popMatrix();
+		this.popMatrix();*/
 
 		if(this.showObjects) {
 			// apply texture TODO

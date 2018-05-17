@@ -20,6 +20,7 @@ serialInclude([
 	'Roof.js',
 	'MyTrapeziumPrism.js',
 	'RearMirror.js',
+	'Headlights.js',
 	'MyInterface.js',
 
 	main=function() {
