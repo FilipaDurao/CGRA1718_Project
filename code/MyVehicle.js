@@ -7,15 +7,13 @@ class MyVehicle extends CGFobject
         this.backWheel = new Wheel(this.scene);
         this.tri = new MyTriangle(this.scene, 1, 1, 1);
 		//scene, width, top_length, bottom_lenght, height
-		this.roof = new Roof(this.scene, 1.6, 1.5, 2.75, 1);
-		this.lights = new Headlights(this.scene);
+		this.roof = new Roof(this.scene, 1, 3, 1, 1.6);
 
 		this.redAppearance = new CGFappearance(this.scene);
 		this.redAppearance.loadTexture("../textures/red.jpg");
         this.redAppearance.setSpecular(0.1, 0.1, 0.1, 1);
         this.redAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.redAppearance.setAmbient(0.6, 0.6, 0.6, 1);
-
     };
 
     display(){
@@ -127,17 +125,23 @@ class MyVehicle extends CGFobject
 			this.frontWheel.display();
 		this.scene.popMatrix();
 
-		this.scene.pushMatrix();
-			this.scene.translate(WIDTH/6, 0.5, LENGTH);
-			this.scene.scale(0.18, 0.18, 0.1);
-			this.lights.display();
+		/*this.scene.pushMatrix();
+			this.scene.translate(1.6, 0.2, 4.6);
+			this.scene.scale(1, 0.6, 0.3);
+			this.scene.rotate(Math.PI/2, 0, 1, 0);
+			this.scene.translate(0, 1, 0);
+			this.scene.rotate(-Math.PI/2, 0, 0, 1);
+			this.tri.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-			this.scene.translate(WIDTH*5/6, 0.5, LENGTH);
-			this.scene.scale(0.18, 0.18, 0.1);
-			this.lights.display();
-		this.scene.popMatrix();
+			this.scene.translate(1.6, 0.2, 1.5);
+			this.scene.scale(1, 0.6, 0.3);
+			this.scene.rotate(Math.PI/2, 0, 1, 0);
+			this.scene.translate(0, 1, 0);
+			this.scene.rotate(-Math.PI/2, 0, 0, 1);
+			this.tri.display();
+		this.scene.popMatrix();*/
 
 
     }
