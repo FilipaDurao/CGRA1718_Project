@@ -8,6 +8,7 @@ class MyVehicle extends CGFobject
         this.tri = new MyTriangle(this.scene, 1, 1, 1);
 		this.roof = new Roof(this.scene, 1, 3, 1, 1.6);
 		this.lights = new Headlights(this.scene);
+		this.mirror = new RearMirror(this.scene);
 
 		this.redAppearance = new CGFappearance(this.scene);
 		this.redAppearance.loadTexture("../textures/red.jpg");
@@ -91,7 +92,7 @@ class MyVehicle extends CGFobject
 		
 		// Front wheel left
 		this.scene.pushMatrix();
-			this.scene.translate(WIDTH - 0.2, 0, 4.05);
+			this.scene.translate(WIDTH - 0.3, 0, 4.05);
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
@@ -100,7 +101,7 @@ class MyVehicle extends CGFobject
 
 		// Front wheel right
 		this.scene.pushMatrix();
-			this.scene.translate(0.2, 0, 4.05);
+			this.scene.translate(0.3, 0, 4.05);
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(-Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
@@ -109,7 +110,7 @@ class MyVehicle extends CGFobject
 
 		// Back wheel right
 		this.scene.pushMatrix();
-			this.scene.translate(0.2, 0, 0.95);
+			this.scene.translate(0.3, 0, 0.95);
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(-Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
@@ -118,7 +119,7 @@ class MyVehicle extends CGFobject
 
 		// Back wheel left
 		this.scene.pushMatrix();
-			this.scene.translate(WIDTH - 0.2, 0, 0.95);
+			this.scene.translate(WIDTH - 0.3, 0, 0.95);
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
@@ -136,6 +137,21 @@ class MyVehicle extends CGFobject
 			this.scene.translate(WIDTH*5/6, 0.5, LENGTH);
 			this.scene.scale(0.18, 0.18, 0.1);
 			this.lights.display();
+		this.scene.popMatrix();
+
+		// Rear Mirrors
+		this.scene.pushMatrix();
+			this.scene.translate(-0.23, 1, 3.5);
+			this.scene.scale(0.2, 0.15 ,0.2);
+			this.scene.rotate(Math.PI, 0, 1, 0);
+			this.mirror.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+			this.scene.translate(WIDTH + 0.23, 1, 3.5);
+			this.scene.scale(0.2, 0.15 ,0.2);
+			this.scene.rotate(Math.PI, 1, 0, 0);
+			this.mirror.display();
 		this.scene.popMatrix();
     }
 
