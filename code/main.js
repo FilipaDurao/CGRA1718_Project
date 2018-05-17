@@ -21,6 +21,7 @@ serialInclude([
 	'MyTrapeziumPrism.js',
 	'RearMirror.js',
 	'MyInterface.js',
+	'Headlights.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);
