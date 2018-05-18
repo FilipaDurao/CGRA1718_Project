@@ -14,15 +14,24 @@ class MyVehicle extends CGFobject
         this.redAppearance.setSpecular(0.1, 0.1, 0.1, 1);
         this.redAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.redAppearance.setAmbient(0.6, 0.6, 0.6, 1);
+
+		this.WHEEL_WIDTH = 0.575;
+		this.WHEEL_DIAMETER = 0.8;
+
+		this.speed = 0;
+        this.xPos = 0;
+        this.zPos = 0;
     };
 
     display(){
+		
+		this.performMovement();
 
     	var LENGTH = 5;
     	var HEIGHT = 2;
     	var WIDTH = 1.6;
 
-		var ROOF_TOP_LENGHT = 1.5;
+		/*HERE var ROOF_TOP_LENGHT = 1.5;
 		var ROOF_BOTTOM_LENGHT = 2.74;
 		var ROOF_HEIGHT = 1;
 
@@ -84,15 +93,12 @@ class MyVehicle extends CGFobject
             this.scene.translate(WIDTH/2, CAR_BACK_HEIGHT/2 + 0.2, CAR_BACK_LENGHT/2);
             this.scene.scale(WIDTH, CAR_BACK_HEIGHT, CAR_BACK_LENGHT);
             this.cube.display();
-		this.scene.popMatrix();
-
-		var WHEEL_WIDTH = 0.575;
-		var WHEEL_DIAMETER = 0.8;
+		this.scene.popMatrix();*/
 		
 		// Front wheel left
 		this.scene.pushMatrix();
 			this.scene.translate(WIDTH - 0.2, 0, 4.05);
-			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
+			this.scene.translate(0, this.WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
 			this.frontWheel.display();
@@ -101,7 +107,7 @@ class MyVehicle extends CGFobject
 		// Front wheel right
 		this.scene.pushMatrix();
 			this.scene.translate(0.2, 0, 4.05);
-			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
+			this.scene.translate(0, this.WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(-Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
 			this.frontWheel.display();
@@ -110,7 +116,7 @@ class MyVehicle extends CGFobject
 		// Back wheel right
 		this.scene.pushMatrix();
 			this.scene.translate(0.2, 0, 0.95);
-			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
+			this.scene.translate(0, this.WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(-Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
 			this.frontWheel.display();
@@ -119,14 +125,14 @@ class MyVehicle extends CGFobject
 		// Back wheel left
 		this.scene.pushMatrix();
 			this.scene.translate(WIDTH - 0.2, 0, 0.95);
-			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
+			this.scene.translate(0, this.WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
 			this.frontWheel.display();
 		this.scene.popMatrix();
 
 		// Car's lights
-		this.scene.pushMatrix();
+		/*HERE this.scene.pushMatrix();
 			this.scene.translate(WIDTH/6, 0.5, LENGTH);
 			this.scene.scale(0.18, 0.18, 0.1);
 			this.lights.display();
@@ -136,8 +142,17 @@ class MyVehicle extends CGFobject
 			this.scene.translate(WIDTH*5/6, 0.5, LENGTH);
 			this.scene.scale(0.18, 0.18, 0.1);
 			this.lights.display();
-		this.scene.popMatrix();
+		this.scene.popMatrix();*/
     }
 
+	move(speed){
+		this.zPos += speed;
+		this.frontWheel.rotateWheel(speed/(this.WHEEL_DIAMETER/2));
+		this.backWheel.rotateWheel(speed/(this.WHEEL_DIAMETER/2));
+	}
+
+	performMovement(){
+		this.scene.translate(this.xPos, 0, this.zPos);
+	}
 
 };

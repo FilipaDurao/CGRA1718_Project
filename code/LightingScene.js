@@ -30,6 +30,8 @@ class LightingScene extends CGFscene
 		this.initObjects();
 		this.initInterfaceVariables();
 		this.initAppearance();
+
+		this.setUpdatePeriod(1000/60);
 		
 	};
 
@@ -100,6 +102,40 @@ class LightingScene extends CGFscene
 			this.lights[i].update();
 	}
 
+	
+	update(){
+		this.checkKeys();
+	}
+
+	/*
+	+------------------------------------+
+	|                                    |
+	|               TASK4                |
+	|                                    |
+	+------------------------------------+
+	*/
+
+	checkKeys(){
+
+		var text="Keys pressed: ";
+		var keysPressed=false;
+	
+		if (this.gui.isKeyPressed("KeyW")){
+			text+=" W ";
+			keysPressed=true;
+			this.car.move(this.speed);
+		}
+
+		if (this.gui.isKeyPressed("KeyS")){
+			text+=" S ";
+			keysPressed=true;
+			this.car.move(-this.speed);
+		}
+
+		if (keysPressed)
+			console.log(text);
+	}
+
 	/*
 	+----------------------------------+
 	|                                  |
@@ -116,7 +152,7 @@ class LightingScene extends CGFscene
 		this.Light2 = true;
 		this.Light3 = true;
 		this.Light4 = true;
-		this.speed = 3;
+		this.speed = 0.1;
 		this.showObjects = false;
 		this.visibleAxis = false;
 	}
@@ -151,7 +187,6 @@ class LightingScene extends CGFscene
 		this.showObjects = !this.showObjects; 
 	}
 
-	
 	display(){
 		// ---- BEGIN Background, camera and axis setup
 
@@ -184,9 +219,9 @@ class LightingScene extends CGFscene
 			this.car.display();
 		this.popMatrix();
 
-		this.pushMatrix();
+		/*HERE this.pushMatrix();
 			this.floor.display();
-		this.popMatrix();
+		this.popMatrix();*/
 
 		if(this.showObjects) {
 			// apply texture TODO
