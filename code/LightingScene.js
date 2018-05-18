@@ -117,6 +117,7 @@ class LightingScene extends CGFscene
 		this.Light3 = true;
 		this.Light4 = true;
 		this.speed = 3;
+		this.Texture = 'space';
 		this.showObjects = false;
 		this.visibleAxis = false;
 	}
