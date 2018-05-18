@@ -101,18 +101,18 @@ class MyVehicle extends CGFobject
 
 		// Front wheel right
 		this.scene.pushMatrix();
-			this.scene.translate(0.3, 0, 4.05);
+			this.scene.translate(-0.25, 0, 4.05);
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
-			this.scene.rotate(-Math.PI/2, 0, 1, 0);
+			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
 			this.frontWheel.display();
 		this.scene.popMatrix();
 
 		// Back wheel right
 		this.scene.pushMatrix();
-			this.scene.translate(0.3, 0, 0.95);
+			this.scene.translate(-0.25, 0, 0.95);
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
-			this.scene.rotate(-Math.PI/2, 0, 1, 0);
+			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
 			this.frontWheel.display();
 		this.scene.popMatrix();
@@ -154,6 +154,5 @@ class MyVehicle extends CGFobject
 			this.mirror.display();
 		this.scene.popMatrix();
     }
-
 
 };
