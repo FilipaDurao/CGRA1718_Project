@@ -58,7 +58,7 @@ class Wheel extends CGFobject {
     }
 
     rotateWheel(angle) {
-        this.angle = angle;
+        this.angle += angle;
         console.log("Angle changed to " + this.angle);
     }
 
