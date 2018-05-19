@@ -1,13 +1,12 @@
 /**
- * MyLamp
+ * SemiSphere
  * @param gl {WebGLRenderingContext}
  * @constructor
  */
 
-class MySemiSphere extends CGFobject
+class SemiSphere extends CGFobject
 {
-	constructor(scene, slices, stacks)
-	{
+	constructor(scene, slices, stacks){
 		super(scene);
 
 		this.slices = slices;
@@ -16,12 +15,9 @@ class MySemiSphere extends CGFobject
 		this.initBuffers();
 	};
 
-	initBuffers()
-	{
+	initBuffers(){
 		this.vertices = [];
-
 		this.indices = [];
-
 		this.normals = [];
 
 		// Angles

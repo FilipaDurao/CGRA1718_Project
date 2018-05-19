@@ -10,12 +10,23 @@ serialInclude([
 	'Plane.js',
 	'MyPrism.js', 
 	'MyCylinder.js',
-	"MyTerrain.js",
+	'MyTerrain.js',
+	"SemiSphere.js",
+	"MyCircle.js",
+	"Wheel.js",
+	"MyVehicle.js",
+	"MyTriangle.js",
+	'MyTrapezium.js',
+	'Roof.js',
+	'MyTrapeziumPrism.js',
+	'RearMirror.js',
+	'MyInterface.js',
+	'Headlights.js',
 
 	main=function() {
 		var app = new CGFapplication(document.body);
 		var myScene = new LightingScene();
-		var myInterface = new CGFinterface();
+		var myInterface = new MyInterface();
 
 		app.init();
 
