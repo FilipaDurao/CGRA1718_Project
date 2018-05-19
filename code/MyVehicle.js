@@ -15,15 +15,7 @@ class MyVehicle extends CGFobject
         this.redAppearance.setSpecular(0.1, 0.1, 0.1, 1);
         this.redAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.redAppearance.setAmbient(0.6, 0.6, 0.6, 1);
-
-		this.WHEEL_WIDTH = 0.575;
-		this.WHEEL_DIAMETER = 0.8;
-
-		this.speed = 0;
-		this.direction = 0;
-        this.xPos = 0;
-        this.zPos = 0;
-
+        
         this.spaceAppearance = new CGFappearance(this.scene);
 		this.spaceAppearance.loadTexture("../textures/galaxy.jpeg");
         this.spaceAppearance.setSpecular(0.1, 0.1, 0.1, 1);
@@ -35,6 +27,15 @@ class MyVehicle extends CGFobject
         this.feupAppearance.setSpecular(0.1, 0.1, 0.1, 1);
         this.feupAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.feupAppearance.setAmbient(0.6, 0.6, 0.6, 1);
+
+		this.WHEEL_WIDTH = 0.575;
+		this.WHEEL_DIAMETER = 0.8;
+
+		this.speed = 0;
+		this.direction = 0;
+        this.xPos = 0;
+        this.zPos = 0;
+
     };
 
     display(){
@@ -117,6 +118,21 @@ class MyVehicle extends CGFobject
 			this.roof.display();
 		this.scene.popMatrix();
 
+		// Rear Mirrors
+		this.scene.pushMatrix();
+			this.scene.translate(-0.23, 1, 3.5);
+			this.scene.scale(0.2, 0.15 ,0.2);
+			this.scene.rotate(Math.PI, 0, 1, 0);
+			this.mirror.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+			this.scene.translate(WIDTH + 0.23, 1, 3.5);
+			this.scene.scale(0.2, 0.15 ,0.2);
+			this.scene.rotate(Math.PI, 1, 0, 0);
+			this.mirror.display();
+		this.scene.popMatrix();
+
 		var WHEEL_WIDTH = 0.575;
 		var WHEEL_DIAMETER = 0.8;
 		
@@ -169,20 +185,6 @@ class MyVehicle extends CGFobject
 			this.lights.display();
 		this.scene.popMatrix();
 
-		// Rear Mirrors
-		this.scene.pushMatrix();
-			this.scene.translate(-0.23, 1, 3.5);
-			this.scene.scale(0.2, 0.15 ,0.2);
-			this.scene.rotate(Math.PI, 0, 1, 0);
-			this.mirror.display();
-		this.scene.popMatrix();
-
-		this.scene.pushMatrix();
-			this.scene.translate(WIDTH + 0.23, 1, 3.5);
-			this.scene.scale(0.2, 0.15 ,0.2);
-			this.scene.rotate(Math.PI, 1, 0, 0);
-			this.mirror.display();
-		this.scene.popMatrix();
     }
 
 	move(speed, turnAngle){
