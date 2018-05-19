@@ -20,6 +20,7 @@ class MyVehicle extends CGFobject
 		this.WHEEL_DIAMETER = 0.8;
 
 		this.speed = 0;
+		this.direction = 0;
         this.xPos = 0;
         this.zPos = 0;
     };
@@ -27,7 +28,6 @@ class MyVehicle extends CGFobject
     display(){
 		
 		this.performMovement();
-
     	
     	var LENGTH = 5;
     	var HEIGHT = 2;
@@ -124,7 +124,7 @@ class MyVehicle extends CGFobject
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
-			this.frontWheel.display();
+			this.backWheel.display();
 		this.scene.popMatrix();
 
 		// Back wheel left
@@ -133,7 +133,7 @@ class MyVehicle extends CGFobject
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
-			this.frontWheel.display();
+			this.backWheel.display();
 		this.scene.popMatrix();
 
 		// Car's lights
@@ -165,14 +165,18 @@ class MyVehicle extends CGFobject
 		this.scene.popMatrix();
     }
 
-	move(speed){
-		this.zPos += speed;
+	move(speed, turnAngle){
 		this.frontWheel.rotateWheel(speed/(this.WHEEL_DIAMETER/2));
 		this.backWheel.rotateWheel(speed/(this.WHEEL_DIAMETER/2));
+		this.frontWheel.turnWheel(turnAngle);
+		this.direction += speed * this.frontWheel.turnAngle;
+		this.zPos += speed * Math.cos(this.direction);
+		this.xPos += speed * Math.sin(this.direction);
 	}
 
 	performMovement(){
 		this.scene.translate(this.xPos, 0, this.zPos);
+		this.scene.rotate(this.direction, 0, 1, 0);
 	}
 
 };
