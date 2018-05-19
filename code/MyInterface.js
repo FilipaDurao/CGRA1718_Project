@@ -27,6 +27,7 @@ class MyInterface extends CGFinterface {
 		this.initSpeedSlider(0,5);
 		this.initObjectsToggle();
 		this.initKeys();
+		this.initDropDownTextures();
 
 		return true;
 	};
@@ -113,6 +114,9 @@ class MyInterface extends CGFinterface {
 		this.gui.add(this.scene, 'showObjects');
 	}
 
+	initDropDownTextures(){
+		this.gui.add(this.scene, 'Texture', [ 'Red', 'feup', 'space' ] );
+	}
 
 };
 
