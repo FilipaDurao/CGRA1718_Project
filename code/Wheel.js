@@ -77,7 +77,7 @@ class Wheel extends CGFobject {
     	}
     	
     	if(turnAngle == 0){
-    		this.turnAngle -= this.turnAngle/3;
+    		this.turnAngle -= this.turnAngle/15;
     	}
     }
 
