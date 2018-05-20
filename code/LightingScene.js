@@ -83,8 +83,16 @@ class LightingScene extends CGFscene
 	};
 
 	initObjects() {
+		let altimetry = [
+			[5,5,5,5,5],
+			[5,5,5,5,5],
+			[0,0,0,0,0],
+			[4,0,0,0,4],
+			[5,5,5,5,5]
+		];
 		this.car = new MyVehicle(this);
-		this.floor = new MyTerrain(this);
+		this.floor = new MyTerrain(this, 4, altimetry);
+		console.log(this.floor);
 
 		// request objects by teacher
 		this.myTrapezium = new MyTrapeziumPrism(this, 5, 3, 45, 2, 2);
