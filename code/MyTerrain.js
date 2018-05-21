@@ -13,7 +13,6 @@ class MyTerrain extends Plane {
         this.streetAppearance.setAmbient(0.8, 0.8, 0.8, 1);
 
         this.applyAltimetry(altimetry);
-        console.log(altimetry);
     }
 
     display() {
@@ -29,9 +28,7 @@ class MyTerrain extends Plane {
     applyAltimetry(altimetry) {
         for(let i = 0; i <= this.nrDivs; i++) { // for each y coordinate
             for(let j = 0; j <= this.nrDivs; j++) { // for each x coordinate
-                console.log(altimetry[i][j]);
                 this.vertices[i*(this.nrDivs+1)*3 + (j+1)*3 - 1] = altimetry[i][j]*2;
-                console.log("Vertice" + i+j+3 + "is now" + this.vertices[i + j + 3]);
             }
         }
 
