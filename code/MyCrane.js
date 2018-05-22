@@ -14,8 +14,8 @@ class MyCrane extends CGFobject {
         this.cable = new CoveredCylinder(this.scene, 30, 30);
         this.magnet = new CoveredCylinder(this.scene, 30, 30);
 
-        this.craneAngle = Math.PI/4;
-        this.topArmAngle = Math.PI/6;
+        this.craneAngle = Math.PI/2;
+        this.topArmAngle = 0;
         this.bottomArmAngle = Math.PI/3;
         this.bottomBarLength = 10;
         this.topBarLength = 8;
@@ -93,6 +93,27 @@ class MyCrane extends CGFobject {
             this.magnet.display();
         this.scene.popMatrix();
 
+    }
+
+
+    turnCrane(){
+       var counter = Math.PI;
+       while(counter > 0){
+            this.craneAngle -= 0.1;
+            counter -= 0.1;
+       }
+    }
+
+    lowerCrane(){
+        while(this.topArmAngle < Math.PI/5){
+            this.topArmAngle += Math.PI/20;
+       }
+    }
+
+    raiseCrane(){
+        while(this.topArmAngle > 0){
+            this.topArmAngle -= Math.PI/20;
+       }
     }
 
 
