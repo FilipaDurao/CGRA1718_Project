@@ -31,6 +31,8 @@ class LightingScene extends CGFscene
 		this.initInterfaceVariables();
 		this.initAppearance();
 
+		this.moveCrane = false;
+
 		this.setUpdatePeriod(1000/60);
 		
 	};
@@ -114,6 +116,11 @@ class LightingScene extends CGFscene
 	
 	update(){
 		this.checkKeys();
+
+		if(this.car.xPos > 5 && this.car.xPos < 7
+			&& this.car.zPos > -2 && this.car.zPos < 1 ) {
+			this.crane.performAnimation();
+		}
 	}
 
 	/*
@@ -241,16 +248,17 @@ class LightingScene extends CGFscene
 		this.pushMatrix();
 			this.crane.display();
 		this.popMatrix();
-/*
-		this.pushMatrix();
-			this.car.display();
-		this.popMatrix();*/
 
-		/*this.pushMatrix();
+		this.pushMatrix();
+			this.translate(5, 0, 0);
+			this.car.display();
+		this.popMatrix();
+
+		this.pushMatrix();
 			this.floor.display();
-		this.popMatrix();*/
+		this.popMatrix();
 		
-/*		if(this.showObjects) {
+		if(this.showObjects) {
 			// apply texture TODO
 			this.feupTexture.apply();
 
@@ -276,7 +284,7 @@ class LightingScene extends CGFscene
 				this.rotate(-Math.PI/2, 1, 0, 0);
 				this.mySemiSphere.display();
 			this.popMatrix();
-		}*/
+		}
 		// ---- END Scene drawing section
 	};
 };

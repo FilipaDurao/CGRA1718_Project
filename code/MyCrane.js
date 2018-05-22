@@ -22,6 +22,10 @@ class MyCrane extends CGFobject {
         this.cableLength = 3;
         this.cableRadius = 0.05;
 
+        this.loweringToPickCar = true;
+        this.raisingCar = false;
+        this.rotatingToDump = false;
+        this.rotatingBack = false;
     }
 
     display(){
@@ -96,24 +100,62 @@ class MyCrane extends CGFobject {
     }
 
 
-    turnCrane(){
-       var counter = Math.PI;
-       while(counter > 0){
-            this.craneAngle -= 0.1;
-            counter -= 0.1;
-       }
+    turnCraneToDump(){
+        this.craneAngle -= 0.01;
+    }
+
+    turnCraneBack(){
+        this.craneAngle += 0.01;
     }
 
     lowerCrane(){
-        while(this.topArmAngle < Math.PI/5){
-            this.topArmAngle += Math.PI/20;
-       }
+        this.topArmAngle += Math.PI/2000;
     }
 
     raiseCrane(){
-        while(this.topArmAngle > 0){
-            this.topArmAngle -= Math.PI/20;
-       }
+        this.topArmAngle -= Math.PI/2000;
+    }
+
+    performAnimation(){
+
+        if(this.loweringToPickCar){
+            this.lowerCrane();
+
+            if (this.topArmAngle < Math.PI/7 + 0.1 && this.topArmAngle > Math.PI/7 - 0.1 ){
+                this.loweringToPickCar = false;
+                this.raisingCar = true;
+            }
+        }
+
+        if(this.raisingCar){
+            this.raiseCrane();
+
+            if (this.topArmAngle < 0.1 && this.topArmAngle > -0.1 ){
+                this.raisingCar = false;
+                this.rotatingToDump = true;
+            }
+        }
+
+        if(this.rotatingToDump){
+            this.turnCraneToDump();
+
+            if(this.craneAngle < -Math.PI/2 + 0.1 && this.craneAngle > -Math.PI/2 - 0.1){
+                this.rotatingToDump = false;
+                this.rotatingBack = true;
+            }
+        }
+
+        if(this.rotatingBack){
+            this.turnCraneBack();
+
+            if(this.craneAngle < Math.PI/2 + 0.1 && this.craneAngle > Math.PI/2 - 0.1){
+                this.rotatingBack = false;
+                this.loweringToPickCar = true;
+            }
+        }
+
+
+
     }
 
 
