@@ -176,7 +176,7 @@ class LightingScene extends CGFscene
 		this.speed = 0.1;
 		this.Texture = 'space';
 		this.showObjects = false;
-		this.visibleAxis = false;
+		this.visibleAxis = true;
 	}
 
 	/**
@@ -246,9 +246,9 @@ class LightingScene extends CGFscene
 			this.car.display();
 		this.popMatrix();*/
 
-		this.pushMatrix();
+		/*this.pushMatrix();
 			this.floor.display();
-		this.popMatrix();
+		this.popMatrix();*/
 		
 /*		if(this.showObjects) {
 			// apply texture TODO
