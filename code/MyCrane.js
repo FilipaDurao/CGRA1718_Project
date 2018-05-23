@@ -14,6 +14,8 @@ class MyCrane extends CGFobject {
         this.cable = new CoveredCylinder(this.scene, 30, 30);
         this.magnet = new CoveredCylinder(this.scene, 30, 30);
 
+        this.car = new MyVehicle(this.scene);
+
         this.craneAngle = Math.PI/2;
         this.topArmAngle = 0;
         this.bottomArmAngle = Math.PI/3;
@@ -25,7 +27,11 @@ class MyCrane extends CGFobject {
         this.loweringToPickCar = true;
         this.raisingCar = false;
         this.rotatingToDump = false;
+        this.loweringCar = false;
+        this.raisingCrane = false;
         this.rotatingBack = false;
+
+        this.hasCar = false;
     }
 
     display(){
@@ -109,11 +115,11 @@ class MyCrane extends CGFobject {
     }
 
     lowerCrane(){
-        this.topArmAngle += Math.PI/2000;
+        this.topArmAngle += Math.PI/500;
     }
 
     raiseCrane(){
-        this.topArmAngle -= Math.PI/2000;
+        this.topArmAngle -= Math.PI/500;
     }
 
     performAnimation(){
@@ -124,6 +130,7 @@ class MyCrane extends CGFobject {
             if (this.topArmAngle < Math.PI/7 + 0.1 && this.topArmAngle > Math.PI/7 - 0.1 ){
                 this.loweringToPickCar = false;
                 this.raisingCar = true;
+                this.hasCar = true;
             }
         }
 
@@ -141,6 +148,25 @@ class MyCrane extends CGFobject {
 
             if(this.craneAngle < -Math.PI/2 + 0.1 && this.craneAngle > -Math.PI/2 - 0.1){
                 this.rotatingToDump = false;
+                this.loweringCar = true;
+            }
+        }
+        
+        if(this.loweringCar){
+          this.lowerCrane();
+
+            if (this.topArmAngle < Math.PI/7 + 0.1 && this.topArmAngle > Math.PI/7 - 0.1 ){
+                this.loweringCar = false;
+                this.raisingCrane = true;
+                this.hasCar = false;
+            }
+        }
+
+        if(this.raisingCrane){
+            this.raiseCrane();
+
+            if (this.topArmAngle < 0.1 && this.topArmAngle > -0.1 ){
+                this.raisingCrane = false;
                 this.rotatingBack = true;
             }
         }

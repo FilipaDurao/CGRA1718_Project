@@ -115,8 +115,9 @@ class LightingScene extends CGFscene
 
 	
 	update(){
-		this.checkKeys();
-
+		if(!this.crane.hasCar){
+			this.checkKeys();
+		}
 		if(this.car.xPos > 5 && this.car.xPos < 7
 			&& this.car.zPos > -2 && this.car.zPos < 1 ) {
 			this.crane.performAnimation();
@@ -249,10 +250,12 @@ class LightingScene extends CGFscene
 			this.crane.display();
 		this.popMatrix();
 
-		this.pushMatrix();
-			this.translate(5, 0, 0);
-			this.car.display();
-		this.popMatrix();
+		if(!this.crane.hasCar){
+			this.pushMatrix();
+				this.translate(5, 0, 0);
+				this.car.display();
+			this.popMatrix();
+		}
 
 		this.pushMatrix();
 			this.floor.display();
