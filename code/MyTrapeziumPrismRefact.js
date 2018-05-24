@@ -42,7 +42,6 @@ class MyTrapeziumPrismA extends CGFobject {
         // declaration and empty initialization
         this.vertices = [];
         this.indices = [];
-        this.normals = [];
         
         /*
          * fill vertices and indices (trapezium bottom base, parallel to Oxy)
@@ -106,13 +105,6 @@ class MyTrapeziumPrismA extends CGFobject {
             // from +x perspective
             1, 3, 5,
             3, 7, 5
-        );
-
-        /**
-         * Fill normals
-         */
-        this.normals.push(
-
         );
      
         this.primitiveType = this.scene.gl.TRIANGLES;
