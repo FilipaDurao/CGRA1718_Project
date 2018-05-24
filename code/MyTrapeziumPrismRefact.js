@@ -24,7 +24,7 @@ class MyTrapeziumPrismA extends CGFobject {
 
     //https://www.buzzle.com/images/diagrams/trapezoidal-prism.jpg
 
-	constructor(scene, base_width, top_width, angle, height, length) {
+	constructor(scene, base_width, top_width, angle, height, length, minS, maxS, minT, maxT) {
         super(scene);
         // set some constants that define the trapezium prism properties
         this.BASE_WIDTH = base_width;
@@ -33,6 +33,11 @@ class MyTrapeziumPrismA extends CGFobject {
         this.HEIGHT = height;
         this.LENGTH = length;
 
+        // set texture coordinates
+        this.minS = minS || 0;
+        this.maxS = maxS || 1;
+        this.minT = minT || 0;
+        this.maxT = maxT || 1;
 
         this.initBuffers();
     };
@@ -106,7 +111,20 @@ class MyTrapeziumPrismA extends CGFobject {
             1, 3, 5,
             3, 7, 5
         );
-     
+        
+        /**
+         * Fill texture coordinates
+         */
+        this.texCoords = [
+            this.minS, this.minT,
+            this.maxS, this.minT,
+            this.minS, this.minT/3,
+            this.maxS, this.minT/3,
+            this.minS, this.minT/3*2,
+            this.maxS, this.minT/3*2,
+            this.minS, this.maxT,
+            this.maxS, this.maxT
+        ];
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
