@@ -3,11 +3,10 @@
  */
 class MyTerrain extends Plane {
     constructor(scene, nrDivs, altimetry) {
-        super(scene, nrDivs, 0, nrDivs, 0, nrDivs);
+        super(scene, nrDivs, 0, 1, 0, 1);
 
         this.streetAppearance = new CGFappearance(this.scene);
-        this.streetAppearance.setTextureWrap('REPEAT', 'REPEAT');
-        this.streetAppearance.loadTexture("../textures/streetFloorTexture.jpg");
+        this.streetAppearance.loadTexture("../textures/floorTextured.png");
         this.streetAppearance.setSpecular(0.1, 0.1, 0.1, 1);
         this.streetAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.streetAppearance.setAmbient(0.8, 0.8, 0.8, 1);
