@@ -118,10 +118,10 @@ class MyTrapeziumPrismA extends CGFobject {
         this.texCoords = [
             this.minS, this.minT,
             this.maxS, this.minT,
-            this.minS, this.minT/3,
-            this.maxS, this.minT/3,
-            this.minS, this.minT/3*2,
-            this.maxS, this.minT/3*2,
+            this.minS, this.maxT/3,
+            this.maxS, this.maxT/3,
+            this.minS, this.maxT/3*2,
+            this.maxS, this.maxT/3*2,
             this.minS, this.maxT,
             this.maxS, this.maxT
         ];
