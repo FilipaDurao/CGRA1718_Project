@@ -24,14 +24,20 @@ class LightingScene extends CGFscene
 
 		this.axis = new CGFaxis(this);
 
-		// Materials
 		this.materialDefault = new CGFappearance(this);
 
+		// Initialize objects
 		this.initObjects();
+
+		// Initialize the interface variables
 		this.initInterfaceVariables();
+
+		// Initialize the begining appearance of the scene
 		this.initAppearance();
 
+		// The variables to control the movement of the car with the crane
 		this.moveCrane = false;
+		this.justDroppedCar = false;
 
 		this.setUpdatePeriod(1000/60);
 		
@@ -55,7 +61,6 @@ class LightingScene extends CGFscene
 		this.lights[0].enable();
 
 		// Create light 2
-		
 		this.lights[1].setPosition(10, 20, -10, 1);
 		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 		this.lights[1].setAmbient(0.5, 0.5, 0.5, 1);
@@ -85,22 +90,16 @@ class LightingScene extends CGFscene
 	};
 
 	initObjects() {
+
+		// The scene objects
 		this.car = new MyVehicle(this);
 		this.floor = new MyTerrain(this);
+		this.crane = new MyCrane(this);
 
 		// request objects by teacher
 		this.myTrapezium = new MyTrapeziumPrism(this, 5, 3, 45, 2, 2);
 		this.myCylinder = new MyCylinder(this, 20, 5);
-		this.mySemiSphere = new SemiSphere(this, 20, 5);
-
-		/*
-		-
-		-
-		-	TEST
-		-
-		-*/
-		this.crane = new MyCrane(this);
-		this.cov = new CoveredCylinder(this);
+		this.mySemiSphere = new SemiSphere(this, 20, 5);		
 	}
 
 	initAppearance() {
@@ -115,9 +114,12 @@ class LightingScene extends CGFscene
 
 	
 	update(){
+		// To check if the car is being carried by the crane
 		if(!this.crane.hasCar){
 			this.checkKeys();
 		}
+
+		// To check if the car is in position to be picked by the crane
 		if(this.car.xPos > 5 && this.car.xPos < 7
 			&& this.car.zPos > -2 && this.car.zPos < 1 ) {
 			this.crane.performAnimation();
@@ -137,24 +139,28 @@ class LightingScene extends CGFscene
 		var text="Keys pressed: ";
 		var keysPressed=false;
 	
+		// To accelerate the car forward
 		if (this.gui.isKeyPressed("KeyW")){
 			text+=" W ";
 			keysPressed=true;
 			this.car.move(this.speed, 0);
 		}
-
+		
+		// To accelerate the car backwards
 		if (this.gui.isKeyPressed("KeyS")){
 			text+=" S ";
 			keysPressed=true;
 			this.car.move(-this.speed, 0);
 		}
 
+		// To turn left
 		if (this.gui.isKeyPressed("KeyA")){
 			text+=" A ";
 			keysPressed=true;
 			this.car.move(0, this.speed);
 		}
 
+		// To turn right
 		if (this.gui.isKeyPressed("KeyD")){
 			text+=" D ";
 			keysPressed=true;
@@ -245,18 +251,28 @@ class LightingScene extends CGFscene
 
 		// ---- BEGIN Scene drawing section
 
-
+		
+		// Draw the crane
 		this.pushMatrix();
 			this.crane.display();
 		this.popMatrix();
 
+		// To draw the car if the crane doesnt have it
 		if(!this.crane.hasCar){
 			this.pushMatrix();
+				
+				if(this.justDroppedCar){
+					this.car.direction += Math.PI;
+					this.car.move(0,0);
+					this.justDroppedCar = false;
+				}
+
 				this.translate(5, 0, 0);
 				this.car.display();
 			this.popMatrix();
 		}
 
+		// Draw the floor
 		this.pushMatrix();
 			this.floor.display();
 		this.popMatrix();
@@ -269,7 +285,6 @@ class LightingScene extends CGFscene
 			//this.camera.setPosition(vec3.fromValues(-10, 0, -15));
 			//this.camera.setTarget(vec3.fromValues(-20, 0, -15));
 			
-			// transformations
 			this.pushMatrix();
 				this.translate(-15,0,-20);
 				this.myTrapezium.display();

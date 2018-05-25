@@ -3,6 +3,7 @@ class Headlights extends CGFobject {
 	constructor(scene){
         super(scene);
 
+		// The Headlights textures
         this.darkRedAppearance = new CGFappearance(this.scene);
 		this.darkRedAppearance.loadTexture("../textures/dark_red.jpg");
         this.darkRedAppearance.setSpecular(0.1, 0.1, 0.1, 1);
@@ -15,6 +16,7 @@ class Headlights extends CGFobject {
         this.darkBlueAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
         this.darkBlueAppearance.setAmbient(0.6, 0.6, 0.6, 1);
 
+		// The headlights parts
 		this.cylinder = new MyCylinder(this.scene, 30, 30);
         this.semiSphere = new SemiSphere(this.scene, 30, 30);
 
@@ -22,6 +24,7 @@ class Headlights extends CGFobject {
     
     display(){
 
+		// To choose the texture to apply
     	if(this.scene.Texture == 'Red'){
     		this.darkRedAppearance.apply();
     	}
@@ -29,10 +32,12 @@ class Headlights extends CGFobject {
     		this.darkBlueAppearance.apply();
     	}
         
+        // The cylinder around the lights
 		this.scene.pushMatrix();
 			this.cylinder.display();
 		this.scene.popMatrix();
 
+		// The actual light
 		this.scene.pushMatrix();
 			this.semiSphere.display();
 		this.scene.popMatrix();
