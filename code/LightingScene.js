@@ -131,7 +131,7 @@ class LightingScene extends CGFscene
 		}
 
 		// To check if the car is in position to be picked by the crane
-		if(this.car.xPos > 5 && this.car.xPos < 7
+		if(this.car.xPos > 4 && this.car.xPos < 10
 			&& this.car.zPos > -2 && this.car.zPos < 1 ) {
 			this.crane.performAnimation();
 		}
@@ -172,14 +172,14 @@ class LightingScene extends CGFscene
 		if (this.gui.isKeyPressed("KeyA")){
 			text+=" A ";
 			keysPressed=true;
-			this.car.move(0, this.speed/45);
+			this.car.move(0, this.speed);
 		}
 
 		// To turn right
 		if (this.gui.isKeyPressed("KeyD")){
 			text+=" D ";
 			keysPressed=true;
-			this.car.move(0, -this.speed/45);
+			this.car.move(0, -this.speed);
 		}
 
 		if (keysPressed)

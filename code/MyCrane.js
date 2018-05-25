@@ -37,12 +37,32 @@ class MyCrane extends CGFobject {
 
         // If the Crane is carrying a car or not
         this.hasCar = false;
+
+        // Textures
+        this.yellowMetalAppearance = new CGFappearance(this.scene);
+		this.yellowMetalAppearance.loadTexture("../textures/yellowMetal.jpg");
+        this.yellowMetalAppearance.setSpecular(0.1, 0.1, 0.1, 1);
+        this.yellowMetalAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.yellowMetalAppearance.setAmbient(0.6, 0.6, 0.6, 1);
+
+        this.metalAppearance = new CGFappearance(this.scene);
+		this.metalAppearance.loadTexture("../textures/metal.jpeg");
+        this.metalAppearance.setSpecular(0.1, 0.1, 0.1, 1);
+        this.metalAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.metalAppearance.setAmbient(0.6, 0.6, 0.6, 1);
+
+        this.metalRopeAppearance = new CGFappearance(this.scene);
+		this.metalRopeAppearance.loadTexture("../textures/metalRope.jpg");
+        this.metalRopeAppearance.setSpecular(0.1, 0.1, 0.1, 1);
+        this.metalRopeAppearance.setDiffuse(0.5, 0.5, 0.5, 1);
+        this.metalRopeAppearance.setAmbient(0.6, 0.6, 0.6, 1);
     }
 
     display(){
         
         // BASE
         this.scene.pushMatrix();
+            this.yellowMetalAppearance.apply();
             this.scene.translate(0, 1, 0);
             this.scene.rotate(Math.PI/2, 1, 0, 0);
             this.baseCylinder.display();
@@ -81,6 +101,7 @@ class MyCrane extends CGFobject {
 
         // CABO
         this.scene.pushMatrix();
+            this.metalRopeAppearance.apply();
             this.scene.rotate(this.craneAngle, 0 ,1, 0);
             this.scene.translate(0,
                                  this.bottomBarLength*Math.sin(this.bottomArmAngle)
@@ -95,6 +116,7 @@ class MyCrane extends CGFobject {
         
         // MAGNET
         this.scene.pushMatrix();
+            this.metalAppearance.apply();
             this.scene.rotate(this.craneAngle, 0 ,1, 0);
             this.scene.translate(0,
                                  this.bottomBarLength*Math.sin(this.bottomArmAngle)
@@ -186,8 +208,9 @@ class MyCrane extends CGFobject {
 
                 // To set the new car position
                 this.scene.justDroppedCar = true;
-                this.scene.car.xPos = -17;
-                this.scene.car.zPos = 2;
+                this.scene.car.speed = 0;
+                this.scene.car.xPos = -18;
+                this.scene.car.zPos = 1;
             }
         }
 
