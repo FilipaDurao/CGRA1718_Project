@@ -185,6 +185,20 @@ class MyVehicle extends CGFobject
 			this.lights.display();
 		this.scene.popMatrix();
 
+		// Rear Mirrors
+		this.scene.pushMatrix();
+			this.scene.translate(-0.23, 1, 3.5);
+			this.scene.scale(0.2, 0.15 ,0.2);
+			this.scene.rotate(Math.PI, 0, 1, 0);
+			this.mirror.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+			this.scene.translate(WIDTH + 0.23, 1, 3.5);
+			this.scene.scale(0.2, 0.15 ,0.2);
+			this.scene.rotate(Math.PI, 1, 0, 0);
+			this.mirror.display();
+		this.scene.popMatrix();
     }
 
 	move(speed, turnAngle){

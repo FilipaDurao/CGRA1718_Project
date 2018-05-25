@@ -48,7 +48,7 @@ class RearMirror extends CGFobject {
 		this.scene.pushMatrix();
 			this.scene.translate(-1.5, 0, -0.2);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
-			this.scene.scale(0.2, 0.2, 1);
+			this.scene.scale(0.2, 0.2, 0.5);
 			this.cylinder.display();
 		this.scene.popMatrix();
 
