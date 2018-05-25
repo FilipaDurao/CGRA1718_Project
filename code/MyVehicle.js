@@ -202,17 +202,22 @@ class MyVehicle extends CGFobject
     }
 
 	move(speed, turnAngle){
-		this.frontWheel.rotateWheel(speed/(this.WHEEL_DIAMETER/2));
-		this.backWheel.rotateWheel(speed/(this.WHEEL_DIAMETER/2));
+		this.speed += speed;
+
+		this.frontWheel.rotateWheel(this.speed/(this.WHEEL_DIAMETER/2));
+		this.backWheel.rotateWheel(this.speed/(this.WHEEL_DIAMETER/2));
 		this.frontWheel.turnWheel(turnAngle);
-		this.direction += speed * this.frontWheel.turnAngle;
-		this.zPos += speed * Math.cos(this.direction);
-		this.xPos += speed * Math.sin(this.direction);
+		this.direction += this.speed * this.frontWheel.turnAngle;
+		this.zPos += this.speed * Math.cos(this.direction);
+		this.xPos += this.speed * Math.sin(this.direction);
 	}
 
 	performMovement(){
 		this.scene.translate(this.xPos, 0, this.zPos);
-		this.scene.rotate(this.direction, 0, 1, 0);
+
+		this.scene.translate(0, 0, 0.95*1.2);
+			this.scene.rotate(this.direction, 0, 1, 0);
+		this.scene.translate(0, 0, -0.95*1.2);
 	}
 
 };

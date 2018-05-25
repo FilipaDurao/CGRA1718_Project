@@ -154,28 +154,32 @@ class LightingScene extends CGFscene
 		if (this.gui.isKeyPressed("KeyW")){
 			text+=" W ";
 			keysPressed=true;
-			this.car.move(this.speed, 0);
+			this.car.move(this.speed/100, 0);
 		}
 		
 		// To accelerate the car backwards
-		if (this.gui.isKeyPressed("KeyS")){
+		else if (this.gui.isKeyPressed("KeyS")){
 			text+=" S ";
 			keysPressed=true;
-			this.car.move(-this.speed, 0);
+			this.car.move(-this.speed/100, 0);
+		}
+
+		else{
+			this.car.move(0, 0);
 		}
 
 		// To turn left
 		if (this.gui.isKeyPressed("KeyA")){
 			text+=" A ";
 			keysPressed=true;
-			this.car.move(0, this.speed);
+			this.car.move(0, this.speed/45);
 		}
 
 		// To turn right
 		if (this.gui.isKeyPressed("KeyD")){
 			text+=" D ";
 			keysPressed=true;
-			this.car.move(0, -this.speed);
+			this.car.move(0, -this.speed/45);
 		}
 
 		if (keysPressed)
