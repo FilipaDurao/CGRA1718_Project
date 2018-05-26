@@ -198,7 +198,7 @@ class LightingScene extends CGFscene
 			
 			// transformations
 			this.pushMatrix();
-				this.translate(-15,0,-20);
+				this.translate(-10,1,-20);
 				this.myTrapezium.display();
 			this.popMatrix();
 
