@@ -47,57 +47,80 @@ class MyTrapeziumPrismA extends CGFobject {
         // declaration and empty initialization
         this.vertices = [];
         this.indices = [];
-        
+        this.texCoords = [];
+
         /*
-         * fill vertices and indices (trapezium bottom base, parallel to Oxy)
+         * fill vertices, indices and textures (trapezium bottom base, parallel to Oxy)
          */
-        this.vertices.push(
-            -this.BASE_WIDTH/2, -this.LENGTH/2, -this.HEIGHT/2,
-            this.BASE_WIDTH/2, -this.LENGTH/2, -this.HEIGHT/2,
-            -this.BASE_WIDTH/2, this.LENGTH/2, -this.HEIGHT/2,
-            this.BASE_WIDTH/2, this.LENGTH/2, -this.HEIGHT/2
-        );
+
+        // Note: the vertices are duplicated 3 times, because each vertice is intersected by 3 edges from 3 faces, thus it's needed for applying textures
+        for(let i=0; i < 3; i++) 
+            this.vertices.push(-this.BASE_WIDTH/2, -this.LENGTH/2, -this.HEIGHT/2);
+        for(let i=0; i < 3; i++) 
+            this.vertices.push(this.BASE_WIDTH/2, -this.LENGTH/2, -this.HEIGHT/2);
+        for(let i=0; i < 3; i++) 
+            this.vertices.push(-this.BASE_WIDTH/2, this.LENGTH/2, -this.HEIGHT/2);
+        for(let i=0; i < 3; i++) 
+            this.vertices.push(this.BASE_WIDTH/2, this.LENGTH/2, -this.HEIGHT/2);
         
         this.indices.push(
-            0, 2, 1,
-            2, 3, 1
+            0, 6, 3,
+            6, 9, 3
         );
-        
+
+        for(let i=0; i < 3; i++) 
+            this.texCoords.push(this.minS, this.minT);
+        for(let i=0; i < 3; i++) 
+            this.texCoords.push(this.maxS/2, this.minT);
+        for(let i=0; i < 3; i++) 
+            this.texCoords.push(this.minS, this.maxT);
+        for(let i=0; i < 3; i++) 
+            this.texCoords.push(this.maxS/2, this.maxT);
            
         /*
-         * fill vertices and indices (trapezium top base, parallel to Oxy)
+         * fill vertices, indices and textures (trapezium top base, parallel to Oxy)
          */
-        
+        // some pre calculus
         // the starting coordinate, on the -x side, based on the bottom vertice and angle
         let x = -this.BASE_WIDTH/2 + this.HEIGHT*Math.tan(this.ANGLE);
-        
         // the top base vertices on the other side, +x
         let y = x + this.TOP_WIDTH;
 
-        this.vertices.push(
-            x, -this.LENGTH/2, this.HEIGHT/2,
-            y, -this.LENGTH/2, this.HEIGHT/2,
-            x, this.LENGTH/2, this.HEIGHT/2,
-            y, this.LENGTH/2, this.HEIGHT/2
-        );
+        for(let i=0; i < 3; i++) 
+            this.vertices.push(x, -this.LENGTH/2, this.HEIGHT/2);
+        for(let i=0; i < 3; i++) 
+            this.vertices.push(y, -this.LENGTH/2, this.HEIGHT/2);
+        for(let i=0; i < 3; i++)
+            this.vertices.push(x, this.LENGTH/2, this.HEIGHT/2);   
+        for(let i=0; i < 3; i++)
+            this.vertices.push(y, this.LENGTH/2, this.HEIGHT/2);
 
         // fill indices
         this.indices.push(
-            4, 5, 6,
-            5, 7, 6
+            12, 15, 18,
+            15, 21, 18
         );
+
+        for(let i=0; i < 3; i++) 
+            this.texCoords.push(this.minS, this.minT);
+        for(let i=0; i < 3; i++) 
+            this.texCoords.push(this.maxS/2, this.minT);
+        for(let i=0; i < 3; i++) 
+            this.texCoords.push(this.minS, this.maxT);
+        for(let i=0; i < 3; i++) 
+            this.texCoords.push(this.maxS/2, this.maxT);
         
 
         /**
-         * Fill indices for laterals, from y perspective
+         * Fill vertices and indices for laterals, from y perspective
          */
         this.indices.push(
             // from -y perspective
-            0, 1, 4, 
-            1, 5, 4,
+            0, 3, 12, 
+            3, 15, 12,
             // from +y perspective
-            6, 7, 2,
-            7, 3, 2
+            21, 9, 6,
+            6, 18, 21
         );
 
         /**
@@ -105,26 +128,13 @@ class MyTrapeziumPrismA extends CGFobject {
          */
          this.indices.push(
             // from -x perspective
-            0, 4, 2,
-            4, 6, 2,
+            0, 12, 6,
+            12, 18, 6,
             // from +x perspective
-            1, 3, 5,
-            3, 7, 5
+            3, 9, 21,
+            21, 15, 3
         );
         
-        /**
-         * Fill texture coordinates
-         */
-        this.texCoords = [
-            this.minS, this.minT,
-            this.maxS, this.minT,
-            this.minS, this.maxT/3,
-            this.maxS, this.maxT/3,
-            this.minS, this.maxT/3*2,
-            this.maxS, this.maxT/3*2,
-            this.minS, this.maxT,
-            this.maxS, this.maxT
-        ];
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
