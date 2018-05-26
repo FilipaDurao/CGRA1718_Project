@@ -27,7 +27,7 @@ class MyTerrain extends Plane {
     applyAltimetry(altimetry) {
         for(let i = 0; i <= this.nrDivs; i++) { // for each y coordinate
             for(let j = 0; j <= this.nrDivs; j++) { // for each x coordinate
-                this.vertices[i*(this.nrDivs+1)*3 + (j+1)*3 - 1] = altimetry[i][j]*2;
+                this.vertices[i*(this.nrDivs+1)*3 + (j+1)*3 - 1] = altimetry[i][j];
             }
         }
 
