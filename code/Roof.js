@@ -16,7 +16,7 @@ class Roof extends CGFobject
         this.BASE_WIDTH = base_width;
         this.HEIGHT = height;
         this.LENGTH = length;
-        this.SLANG = 20;
+        this.SLANG = 45;
 
         // the appereance, this will probably change later on
         this.redAppearance = new CGFappearance(this.scene);
@@ -86,19 +86,19 @@ class Roof extends CGFobject
         // a ratio to shrink the window such that vertical lenght is the same as other windows
         let ratio = frontWindowHeight*Math.sin(this.SLANG*degToRad)/this.HEIGHT; 
         this.scene.pushMatrix();
-            this.scene.translate(this.BASE_WIDTH/2+horizontalMargin, this.HEIGHT/2, this.LENGTH/2 + 0.01);
+            this.scene.translate(this.BASE_WIDTH/2, this.HEIGHT/2, this.LENGTH/2 + 0.01);
             this.scene.scale(ratio, ratio, 1);
             this.lateralLeftWindow.display();
         this.scene.popMatrix();
 
         // lateral window right
         this.scene.pushMatrix();
-            this.scene.translate(this.BASE_WIDTH/2+horizontalMargin, this.HEIGHT/2, -this.LENGTH/2 - 0.01);
+            this.scene.translate(this.BASE_WIDTH/2, this.HEIGHT/2, -this.LENGTH/2 - 0.01);
             this.scene.scale(ratio, ratio, 1);
             this.lateralRightWindow.display();
         this.scene.popMatrix();
 
-        
+
     }
 
 
