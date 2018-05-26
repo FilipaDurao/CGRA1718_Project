@@ -11,7 +11,7 @@ class MyTrapeziumPrismA extends CGFobject {
        ******************** \
             BASE_WIDTH
     */
-    
+
     /**
      * 
      * @param {*} scene The scene
@@ -24,12 +24,12 @@ class MyTrapeziumPrismA extends CGFobject {
 
     //https://www.buzzle.com/images/diagrams/trapezoidal-prism.jpg
 
-	constructor(scene, base_width, top_width, angle, height, length, minS, maxS, minT, maxT) {
+    constructor(scene, base_width, top_width, angle, height, length, minS, maxS, minT, maxT) {
         super(scene);
         // set some constants that define the trapezium prism properties
         this.BASE_WIDTH = base_width;
         this.TOP_WIDTH = top_width;
-        this.ANGLE = angle*Math.PI/180;
+        this.ANGLE = angle * Math.PI / 180;
         this.HEIGHT = height;
         this.LENGTH = length;
 
@@ -41,7 +41,15 @@ class MyTrapeziumPrismA extends CGFobject {
 
         this.initBuffers();
     };
-    
+
+    /**
+	 * Returns the lenght of the back side (-x perspective) face that unites the top and base faces
+	 */
+    getBackEdgeLenght() {
+        // aux is the horizontal distance between the right-most side vertices
+        let aux = this.BASE_WIDTH - this.TOP_WIDTH - this.HEIGHT/Math.tan(this.ANGLE);
+        return Math.sqrt(aux*aux + this.HEIGHT*this.HEIGHT);
+    }
 
     initBuffers() {
         // declaration and empty initialization
@@ -54,88 +62,107 @@ class MyTrapeziumPrismA extends CGFobject {
          */
 
         // Note: the vertices are duplicated 3 times, because each vertice is intersected by 3 edges from 3 faces, thus it's needed for applying textures
-        for(let i=0; i < 3; i++) 
-            this.vertices.push(-this.BASE_WIDTH/2, -this.LENGTH/2, -this.HEIGHT/2);
-        for(let i=0; i < 3; i++) 
-            this.vertices.push(this.BASE_WIDTH/2, -this.LENGTH/2, -this.HEIGHT/2);
-        for(let i=0; i < 3; i++) 
-            this.vertices.push(-this.BASE_WIDTH/2, this.LENGTH/2, -this.HEIGHT/2);
-        for(let i=0; i < 3; i++) 
-            this.vertices.push(this.BASE_WIDTH/2, this.LENGTH/2, -this.HEIGHT/2);
-        
+        for (let i = 0; i < 4; i++)
+            this.vertices.push(-this.BASE_WIDTH / 2, -this.LENGTH / 2, -this.HEIGHT / 2);
+        for (let i = 0; i < 2; i++)
+            this.vertices.push(this.BASE_WIDTH / 2, -this.LENGTH / 2, -this.HEIGHT / 2);
+        for (let i = 0; i < 2; i++)
+            this.vertices.push(-this.BASE_WIDTH / 2, this.LENGTH / 2, -this.HEIGHT / 2);
+
+        this.vertices.push(this.BASE_WIDTH / 2, this.LENGTH / 2, -this.HEIGHT / 2);
+
         this.indices.push(
-            0, 6, 3,
-            6, 9, 3
+            0, 6, 4,
+            6, 8, 4
         );
 
-        for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.minS, this.minT);
-        for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.maxS/2, this.minT);
-        for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.minS, this.maxT);
-        for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.maxS/2, this.maxT);
-           
         /*
          * fill vertices, indices and textures (trapezium top base, parallel to Oxy)
          */
 
         // some pre calculus
         // the starting coordinate, on the -x side, based on the bottom vertice and angle
-        let x = -this.BASE_WIDTH/2 + this.HEIGHT*Math.tan(this.ANGLE);
+        let x = -this.BASE_WIDTH / 2 + this.HEIGHT * Math.tan(this.ANGLE);
         // the top base vertices on the other side, +x
         let y = x + this.TOP_WIDTH;
 
-        for(let i=0; i < 3; i++) 
-            this.vertices.push(x, -this.LENGTH/2, this.HEIGHT/2);
-        for(let i=0; i < 3; i++) 
-            this.vertices.push(y, -this.LENGTH/2, this.HEIGHT/2);
-        for(let i=0; i < 3; i++)
-            this.vertices.push(x, this.LENGTH/2, this.HEIGHT/2);   
-        for(let i=0; i < 3; i++)
-            this.vertices.push(y, this.LENGTH/2, this.HEIGHT/2);
+        this.vertices.push(
+            x, -this.LENGTH / 2, this.HEIGHT / 2,
+            y, -this.LENGTH / 2, this.HEIGHT / 2,
+            x, this.LENGTH / 2, this.HEIGHT / 2,
+            y, this.LENGTH / 2, this.HEIGHT / 2
+        );
 
         // fill indices
         this.indices.push(
-            12, 15, 18,
-            15, 21, 18
+            9, 10, 11,
+            10, 12, 11
         );
-
-        for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.maxS - Math.abs(x)/this.maxS, this.minT);
-        for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.maxS/2 + Math.abs(x)/this.maxS, this.minT);
-        for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.maxS - Math.abs(x)/this.maxS, this.maxT);
-        for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.maxS/2 + Math.abs(x)/this.maxS, this.maxT);
-        
 
         /**
          * Fill vertices and indices for laterals, from y perspective
          */
+
         this.indices.push(
             // from -y perspective
-            0, 3, 12, 
-            3, 15, 12,
+            0, 4, 9,
+            4, 10, 9,
             // from +y perspective
-            21, 9, 6,
-            6, 18, 21
+            6, 11, 12,
+            8, 6, 12
         );
 
         /**
          * Fill indices for laterals from x direction
          */
-         this.indices.push(
+
+        this.indices.push(
             // from -x perspective
-            0, 12, 6,
-            12, 18, 6,
+            0, 9, 6,
+            9, 11, 6,
             // from +x perspective
-            3, 9, 21,
-            21, 15, 3
+            4, 8, 12,
+            4, 12, 10
         );
-        
+
+        /**
+         * Fill texture coordinates
+         */
+
+        // these variables are used to determine the 't' and 's' values
+        // maxT matches a coordinate 2*this.LENGTH + 2*this.HEIGHT
+        // maxS matches a coordinate 
+        let slangLenght1 = this.HEIGHT/Math.sin(this.ANGLE); // the lenght of face that unites bottom and top bases
+        let slangLenght2 = this.getBackEdgeLenght();
+        let dt = this.maxT / (2 * this.LENGTH + 2 * this.HEIGHT);
+        let ds = this.maxS / (this.BASE_WIDTH + slangLenght1 + slangLenght2 + this.TOP_WIDTH);
+
+        this.texCoords.push(
+            // the first 4 vertices it's where all starts and all ends
+            this.minS, this.minT,
+            //this.maxS, this.minT,
+            //this.minS, this.maxT,
+            //this.maxS, this.maxT,
+            this.minS, this.minT,
+            this.minS, this.minT,
+            this.minS, this.minT,
+
+            this.minS + ds * this.BASE_WIDTH, this.minT,
+            this.minS + ds * this.BASE_WIDTH, this.maxT,
+
+            this.minS, this.minT + dt * this.LENGTH,
+            this.maxS, this.minT + dt * this.LENGTH,
+
+            this.minS + ds * this.BASE_WIDTH, this.minT + dt * this.LENGTH
+        );
+
+        this.texCoords.push(
+            this.maxS - ds * Math.abs(x), this.maxT - dt * this.LENGTH,
+            this.minS + ds * (this.BASE_WIDTH+Math.abs(x)), this.maxT - dt * this.LENGTH,
+            this.maxS - ds * Math.abs(x), this.maxT - dt * (this.LENGTH + this.HEIGHT),
+            this.minS + ds * (this.BASE_WIDTH+Math.abs(x)), this.maxT - dt * (this.LENGTH + this.HEIGHT)
+        );
+
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
