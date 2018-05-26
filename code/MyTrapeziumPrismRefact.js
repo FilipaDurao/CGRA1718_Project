@@ -43,14 +43,26 @@ class MyTrapeziumPrismA extends CGFobject {
     };
 
     /**
-	 * Returns the lenght of the back side (-x perspective) face that unites the top and base faces
-	 */
+     * Returns the lenght of the back (-x perspective) face that unites the top and base faces
+     */
     getBackEdgeLenght() {
         // aux is the horizontal distance between the right-most side vertices
-        let aux = this.BASE_WIDTH - this.TOP_WIDTH - this.HEIGHT/Math.tan(this.ANGLE);
-        return Math.sqrt(aux*aux + this.HEIGHT*this.HEIGHT);
+        let aux = this.vertices[4] - this.vertices[10];
+        return Math.sqrt(aux * aux + this.HEIGHT * this.HEIGHT);
     }
 
+    /**
+     * Returns the lenght of the front (-x perspective) face that unites the top and base faces
+     */
+    getFrontEdgeLenght() {
+        // aux is the horizontal distance between the left-most side vertices
+        let aux = this.vertices[0] - this.vertices[9];
+        return Math.sqrt(aux * aux + this.HEIGHT * this.HEIGHT);
+    }
+
+    /**
+     * Initializes vertices, indices and texCoords
+     */
     initBuffers() {
         // declaration and empty initialization
         this.vertices = [];
@@ -62,11 +74,11 @@ class MyTrapeziumPrismA extends CGFobject {
          */
 
         // Note: the vertices are duplicated 3 times, because each vertice is intersected by 3 edges from 3 faces, thus it's needed for applying textures
-        for (let i = 0; i < 4; i++)
+        for (let i = 0; i < 1; i++)
             this.vertices.push(-this.BASE_WIDTH / 2, -this.LENGTH / 2, -this.HEIGHT / 2);
-        for (let i = 0; i < 2; i++)
+        for (let i = 0; i < 1; i++)
             this.vertices.push(this.BASE_WIDTH / 2, -this.LENGTH / 2, -this.HEIGHT / 2);
-        for (let i = 0; i < 2; i++)
+        for (let i = 0; i < 1; i++)
             this.vertices.push(-this.BASE_WIDTH / 2, this.LENGTH / 2, -this.HEIGHT / 2);
 
         this.vertices.push(this.BASE_WIDTH / 2, this.LENGTH / 2, -this.HEIGHT / 2);
@@ -129,38 +141,37 @@ class MyTrapeziumPrismA extends CGFobject {
          * Fill texture coordinates
          */
 
-        // these variables are used to determine the 't' and 's' values
-        // maxT matches a coordinate 2*this.LENGTH + 2*this.HEIGHT
-        // maxS matches a coordinate 
-        let slangLenght1 = this.HEIGHT/Math.sin(this.ANGLE); // the lenght of face that unites bottom and top bases
-        let slangLenght2 = this.getBackEdgeLenght();
-        let dt = this.maxT / (2 * this.LENGTH + 2 * this.HEIGHT);
-        let ds = this.maxS / (this.BASE_WIDTH + slangLenght1 + slangLenght2 + this.TOP_WIDTH);
-
+        // these variables are used to determine the 't' and 's' values for each vertice
+        // maxT maps to lateral lenght around x axis
+        // maxS maps to lateral lenght around y axis
+        let dt = (this.maxT - this.minT) / (2 * this.LENGTH + 2 * this.HEIGHT);
+        let ds = (this.maxS - this.minS) / (this.BASE_WIDTH + this.getBackEdgeLenght() + this.getFrontEdgeLenght() + this.TOP_WIDTH);
+        console.log(this.getBackEdgeLenght());
+        console.log(this.getFrontEdgeLenght());
+        console.log(ds);
         this.texCoords.push(
             // the first 4 vertices it's where all starts and all ends
             this.minS, this.minT,
             //this.maxS, this.minT,
             //this.minS, this.maxT,
             //this.maxS, this.maxT,
-            this.minS, this.minT,
-            this.minS, this.minT,
-            this.minS, this.minT,
 
+            // second group of vertices is also part of the axis where t starts and ends
             this.minS + ds * this.BASE_WIDTH, this.minT,
-            this.minS + ds * this.BASE_WIDTH, this.maxT,
+            //this.minS + ds * this.BASE_WIDTH, this.maxT,
 
+            // the next vertices are part of the axis where s starts and ends
             this.minS, this.minT + dt * this.LENGTH,
-            this.maxS, this.minT + dt * this.LENGTH,
+            //this.maxS, this.minT + dt * this.LENGTH,
 
-            this.minS + ds * this.BASE_WIDTH, this.minT + dt * this.LENGTH
-        );
+            // last vertice from base face
+            this.minS + ds * this.BASE_WIDTH, this.minT + dt * this.LENGTH,
 
-        this.texCoords.push(
-            this.maxS - ds * Math.abs(x), this.maxT - dt * this.LENGTH,
-            this.minS + ds * (this.BASE_WIDTH+Math.abs(x)), this.maxT - dt * this.LENGTH,
-            this.maxS - ds * Math.abs(x), this.maxT - dt * (this.LENGTH + this.HEIGHT),
-            this.minS + ds * (this.BASE_WIDTH+Math.abs(x)), this.maxT - dt * (this.LENGTH + this.HEIGHT)
+            // top's face vertices
+            this.minS + ds * (this.BASE_WIDTH + this.getBackEdgeLenght() + this.TOP_WIDTH), this.minT + dt * (this.LENGTH * 2 + this.HEIGHT),
+            this.minS + ds * (this.BASE_WIDTH + this.getBackEdgeLenght()), this.minT + dt * (this.LENGTH * 2 + this.HEIGHT),
+            this.minS + ds * (this.BASE_WIDTH + this.getBackEdgeLenght() + this.TOP_WIDTH), this.minT + dt * (this.LENGTH + this.HEIGHT),
+            this.minS + ds * (this.BASE_WIDTH + this.getBackEdgeLenght()), this.minT + dt * (this.LENGTH + this.HEIGHT)
         );
 
         this.primitiveType = this.scene.gl.TRIANGLES;
