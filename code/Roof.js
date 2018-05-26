@@ -16,7 +16,7 @@ class Roof extends CGFobject
         this.BASE_WIDTH = base_width;
         this.HEIGHT = height;
         this.LENGTH = length;
-        this.SLANG = 45;
+        this.SLANG = 20;
 
         // the appereance, this will probably change later on
         this.redAppearance = new CGFappearance(this.scene);
@@ -47,6 +47,7 @@ class Roof extends CGFobject
     display(){
         // the main body structure
         this.scene.pushMatrix();
+            this.scene.translate(this.BASE_WIDTH/2, this.HEIGHT/2, 0);
             this.scene.rotate(-Math.PI/2, 1, 0, 0);
             this.roofBody.display(); 
         this.scene.popMatrix();
@@ -61,8 +62,8 @@ class Roof extends CGFobject
         let frontWindowHeight = this.roofBody.getFrontPanelLength() - verticalMargin*2;
         let frontWindowWidth = this.LENGTH - horizontalMargin*2;
         this.scene.pushMatrix();
-            this.scene.translate(-this.BASE_WIDTH/2, -(frontWindowHeight*Math.sin(this.SLANG)/2), 0);
-            this.scene.rotate(-Math.PI/2 + this.roofBody.getFrontPanelAngle(), 0, 0, 1);
+            this.scene.translate(-0.01, 0, 0); // a little shift to avoid rendering glitches
+            this.scene.rotate(this.roofBody.getFrontPanelAngle(), 0, 0, 1);
             this.scene.translate(0, frontWindowHeight/2 + verticalMargin, 0);
             this.scene.scale(0, frontWindowHeight, frontWindowWidth); 
             this.scene.rotate(-Math.PI/2, 0, 1, 0);
@@ -73,7 +74,7 @@ class Roof extends CGFobject
         let backWindowHeight = this.roofBody.getBackPanelLength() - verticalMargin*2;
         let backWindowWidth = this.LENGTH - horizontalMargin*2;
         this.scene.pushMatrix();
-            this.scene.translate(this.BASE_WIDTH/2, -((backWindowHeight + verticalMargin)*Math.sin(this.roofBody.getBackPanelAngle())/2), 0); // just a small shift, so that the panel is above the trapezium (avoid glitches)    
+            this.scene.translate(this.BASE_WIDTH + 0.01, 0, 0); // just a small shift, so that the panel is above the trapezium (avoid glitches)    
             this.scene.rotate(this.roofBody.getBackPanelAngle(), 0, 0, 1);
             this.scene.translate(0, backWindowHeight/2 + verticalMargin, 0);
             this.scene.scale(0, backWindowHeight, backWindowWidth); 
@@ -85,14 +86,14 @@ class Roof extends CGFobject
         // a ratio to shrink the window such that vertical lenght is the same as other windows
         let ratio = frontWindowHeight*Math.sin(this.SLANG*degToRad)/this.HEIGHT; 
         this.scene.pushMatrix();
-            this.scene.translate(0, 0, this.LENGTH/2 + 0.01); // align to the center
+            this.scene.translate(this.BASE_WIDTH/2*(2 - ratio), this.HEIGHT/2*(2 - ratio), this.LENGTH/2 + 0.01); // align to the center
             this.scene.scale(ratio, ratio, 1);
             this.lateralLeftWindow.display();
         this.scene.popMatrix();
 
         // lateral window right
         this.scene.pushMatrix();
-            this.scene.translate(0, 0, -this.LENGTH/2 - 0.01); // align to the center
+            this.scene.translate(this.BASE_WIDTH/2*(2 - ratio), this.HEIGHT/2*(2 - ratio), -this.LENGTH/2 - 0.01); // align to the center
             this.scene.scale(ratio, ratio, 1);
             this.lateralRightWindow.display();
         this.scene.popMatrix();
