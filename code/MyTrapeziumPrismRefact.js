@@ -80,6 +80,7 @@ class MyTrapeziumPrismA extends CGFobject {
         /*
          * fill vertices, indices and textures (trapezium top base, parallel to Oxy)
          */
+
         // some pre calculus
         // the starting coordinate, on the -x side, based on the bottom vertice and angle
         let x = -this.BASE_WIDTH/2 + this.HEIGHT*Math.tan(this.ANGLE);
@@ -102,13 +103,13 @@ class MyTrapeziumPrismA extends CGFobject {
         );
 
         for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.minS, this.minT);
+            this.texCoords.push(this.maxS - Math.abs(x)/this.maxS, this.minT);
         for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.maxS/2, this.minT);
+            this.texCoords.push(this.maxS/2 + Math.abs(x)/this.maxS, this.minT);
         for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.minS, this.maxT);
+            this.texCoords.push(this.maxS - Math.abs(x)/this.maxS, this.maxT);
         for(let i=0; i < 3; i++) 
-            this.texCoords.push(this.maxS/2, this.maxT);
+            this.texCoords.push(this.maxS/2 + Math.abs(x)/this.maxS, this.maxT);
         
 
         /**
