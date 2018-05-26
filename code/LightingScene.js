@@ -131,8 +131,8 @@ class LightingScene extends CGFscene
 		}
 
 		// To check if the car is in position to be picked by the crane
-		if(this.car.xPos > 4 && this.car.xPos < 10
-			&& this.car.zPos > -2 && this.car.zPos < 1 ) {
+		if(this.car.xPos > 4 && this.car.xPos < 13
+			&& this.car.zPos > -2 && this.car.zPos < 2 ) {
 			this.crane.performAnimation();
 		}
 	}

@@ -139,7 +139,7 @@ class MyCrane extends CGFobject {
                                     - this.cableLength - 2,
                                     -1.5);
             this.scene.rotate(this.scene.car.direction, 0, 1, 0);
-            this.scene.translate(-1, 0, -1.3);
+            this.scene.translate(-1.5, 0, -1.5);
             this.car.display();
         }
     }
