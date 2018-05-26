@@ -17,7 +17,7 @@ class MyTrapeziumPrism extends CGFobject {
      * @param {*} scene The scene
      * @param {*} base_width 
      * @param {*} top_width 
-     * @param {*} angle The slant between the left most vertices of base and top (degrees)
+     * @param {*} angle The slant between the left most vertices of base and top (internal angle in degrees)
      * @param {*} height
      * @param {*} length 
      */
@@ -61,18 +61,20 @@ class MyTrapeziumPrism extends CGFobject {
     }
 
     /**
-     * Returns the slang of the front panel
+     * Returns the slang of the front panel measured from vertical axis
      */
     getFrontPanelAngle() {
-        return this.ANGLE;
+        // aux is the horizontal distance between the left-most side vertices
+		let aux = this.vertices[0] - this.vertices[4*3];
+		return Math.atan(aux / this.HEIGHT);
     }
 
     /**
-     * Returns the slang of the back panel
+     * Returns the slang of the back panel measured from vertical axis
      */
     getBackPanelAngle() {
         let aux = this.vertices[3*3] - this.vertices[7*3];
-        return Math.atan(aux / this.HEIGHT);
+        return Math.atan(aux/this.HEIGHT);
     }
 
     /**
@@ -107,7 +109,7 @@ class MyTrapeziumPrism extends CGFobject {
 
         // some pre calculus
         // the starting coordinate, on the -x side, based on the bottom vertice and angle
-        let x = -this.BASE_WIDTH / 2 + this.HEIGHT * Math.tan(this.ANGLE);
+        let x = -this.BASE_WIDTH / 2 + this.HEIGHT * Math.tan(Math.PI/2 - this.ANGLE);
         // the top base vertices on the other side, +x
         let y = x + this.TOP_WIDTH;
 
