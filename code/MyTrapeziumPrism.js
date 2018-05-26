@@ -47,7 +47,7 @@ class MyTrapeziumPrism extends CGFobject {
      */
     getBackPanelLength() {
         // aux is the horizontal distance between the right-most side vertices
-        let aux = this.vertices[1] - this.vertices[7];
+        let aux = this.vertices[3*3] - this.vertices[7*3];
         return Math.sqrt(aux * aux + this.HEIGHT * this.HEIGHT);
     }
 
@@ -56,7 +56,7 @@ class MyTrapeziumPrism extends CGFobject {
      */
     getFrontPanelLength() {
         // aux is the horizontal distance between the left-most side vertices
-        let aux = this.vertices[0] - this.vertices[4];
+        let aux = this.vertices[0] - this.vertices[4*3];
         return Math.sqrt(aux * aux + this.HEIGHT * this.HEIGHT);
     }
 
@@ -71,7 +71,7 @@ class MyTrapeziumPrism extends CGFobject {
      * Returns the slang of the back panel
      */
     getBackPanelAngle() {
-        let aux = this.vertices[3] - this.vertices[7];
+        let aux = this.vertices[3*3] - this.vertices[7*3];
         return Math.atan(aux / this.HEIGHT);
     }
 
