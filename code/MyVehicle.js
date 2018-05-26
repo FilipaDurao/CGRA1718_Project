@@ -6,7 +6,7 @@ class MyVehicle extends CGFobject
         this.frontWheel = new Wheel(this.scene);
         this.backWheel = new Wheel(this.scene);
         this.tri = new MyTriangle(this.scene, 1, 1, 1);
-		this.roof = new Roof(this.scene, 1, 3, 1, 1.6);
+		this.roof = new Roof(this.scene, 1, 3.2, 1, 1.6);
 		this.lights = new Headlights(this.scene);
 		this.mirror = new RearMirror(this.scene);
 
@@ -23,15 +23,14 @@ class MyVehicle extends CGFobject
     	var HEIGHT = 2;
     	var WIDTH = 1.6;
 
-		var ROOF_TOP_LENGHT = 1.5;
-		var ROOF_BOTTOM_LENGHT = 2.74;
+		var ROOF_TOP_LENGHT = 1;
+		var ROOF_BOTTOM_LENGHT = 3.2;
 		var ROOF_HEIGHT = 1;
 
 		// Roof
 		this.scene.pushMatrix();
 			this.redAppearance.apply();
-			this.scene.translate(0, 0, 1);
-			this.scene.translate(0, 1, ROOF_BOTTOM_LENGHT)
+			this.scene.translate(WIDTH/2, 1 + ROOF_HEIGHT/2, 4-ROOF_BOTTOM_LENGHT/2);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.roof.display();
 		this.scene.popMatrix();
