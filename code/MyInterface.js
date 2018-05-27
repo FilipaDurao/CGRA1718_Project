@@ -99,6 +99,15 @@ class MyInterface extends CGFinterface {
 				this.scene.toggleLight(3, true);
 			}
 		});
+
+		group.add(this.scene, 'Light5').onChange(()=>{
+			if(this.scene.Light5){
+				this.scene.toggleLight(4, false);
+			}
+			else{
+				this.scene.toggleLight(4, true);
+			}
+		});
 	}
 
 	initSpeedSlider(min, max) {
