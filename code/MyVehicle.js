@@ -124,7 +124,7 @@ class MyVehicle extends CGFobject
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
-			this.frontWheel.display();
+			this.backWheel.display();
 		this.scene.popMatrix();
 
 		// Back wheel left
@@ -133,7 +133,7 @@ class MyVehicle extends CGFobject
 			this.scene.translate(0, WHEEL_DIAMETER/2, 0);
 			this.scene.rotate(Math.PI/2, 0, 1, 0);
 			this.scene.scale(0.4, 0.4, 0.5);
-			this.frontWheel.display();
+			this.backWheel.display();
 		this.scene.popMatrix();
 
 		// Car's lights
