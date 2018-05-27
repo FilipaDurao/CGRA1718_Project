@@ -34,6 +34,7 @@ class Headlights extends CGFobject {
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
+			this.mirrorAppearance.apply();
 			this.semiSphere.display();
 		this.scene.popMatrix();
 
