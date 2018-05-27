@@ -19,6 +19,7 @@ class SemiSphere extends CGFobject
 		this.vertices = [];
 		this.indices = [];
 		this.normals = [];
+		this.texCoords = [];
 
 		// Angles
 		var theta = 2.0*Math.PI/this.slices;
@@ -26,29 +27,28 @@ class SemiSphere extends CGFobject
 
 		// Fill vertices
 		for(let i = 0; i <= this.stacks; i++) {
-			for(let j = 0; j < this.slices; j++) {
+			for(let j = 0; j <= this.slices; j++) {
 				this.vertices.push(Math.cos(theta*j)*Math.cos(alfa*i), Math.sin(theta*j)*Math.cos(alfa*i), Math.sin(alfa*i));
 				this.normals.push(Math.cos(theta*j)*Math.cos(alfa*i), Math.sin(theta*j)*Math.cos(alfa*i), Math.sin(alfa*i));
+				this.texCoords.push(j/this.slices, i/this.stacks);
 			}
 		}
 
-		// Fill indices
+		// Fild indices (new)
 		for(let i = 0; i < this.stacks; i++) {
 			for(let j = 0; j < this.slices; j++) {
 				this.indices.push(
-					this.slices*i + j,
-					this.slices*i + (j+1)%(this.slices),
-					this.slices*(i + 1) + j
+					(this.slices + 1)*i + j,
+					(this.slices + 1)*i + j + 1,
+					(this.slices + 1)*(i + 1) + j,
 				);
-
+				
 				this.indices.push(
-					this.slices*i + (j+1)%(this.slices),
-					this.slices*(i + 1) + (j+1)%(this.slices),
-					this.slices*(i + 1) + j
+					(this.slices + 1)*i + j + 1,
+					(this.slices + 1)*(i + 1) + j + 1,
+					(this.slices + 1)*(i + 1) + j
 				);
 			}
-
-
 		}
 
 		this.primitiveType=this.scene.gl.TRIANGLES;

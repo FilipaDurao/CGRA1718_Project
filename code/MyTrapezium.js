@@ -25,10 +25,10 @@ class MyTrapezium extends CGFobject {
 
 	initBuffers() {
 		this.vertices = [
-			0, 0, 0,
-			this.base_width, 0, 0, 
-			this.height/Math.tan(this.theta), this.height, 0, 
-			this.height/Math.tan(this.theta) + this.top_width, this.height, 0
+			-this.base_width/2, -this.height/2, 0,
+			this.base_width/2, -this.height/2, 0, 
+			-this.base_width/2 + this.height/Math.tan(this.theta), this.height/2, 0, 
+			-this.base_width/2 + this.height/Math.tan(this.theta) + this.top_width, this.height/2, 0
 		];
 
 		this.indices = [
