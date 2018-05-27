@@ -24,10 +24,9 @@ class MyInterface extends CGFinterface {
 		this.gui = new dat.GUI();
 		this.initAxisButton();
 		this.initLightsFolder();
-		this.initSpeedSlider(0, 5);
+		this.initSpeedSlider(0,5);
 		this.initObjectsToggle();
 		this.initKeys();
-		this.initDropDownTextures();
 
 		return true;
 	};
@@ -104,6 +103,7 @@ class MyInterface extends CGFinterface {
 	initSpeedSlider(min, max) {
 		// add a slider
 		// must be a numeric variable of the scene, initialized in scene.init e.g.
+		// this.speed=3;
 		// min and max values can be specified as parameters
 
 		this.gui.add(this.scene, 'speed', min, max);
@@ -113,9 +113,6 @@ class MyInterface extends CGFinterface {
 		this.gui.add(this.scene, 'showObjects');
 	}
 
-	initDropDownTextures(){
-		this.gui.add(this.scene, 'Texture', [ 'Red', 'feup', 'space' ] );
-	}
 
 };
 
