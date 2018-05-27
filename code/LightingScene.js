@@ -123,13 +123,29 @@ class LightingScene extends CGFscene
 		if (this.gui.isKeyPressed("KeyW")){
 			text+=" W ";
 			keysPressed=true;
-			this.car.move(this.speed);
+			this.car.move(this.speed/100, 0);
 		}
 
-		if (this.gui.isKeyPressed("KeyS")){
+		else if (this.gui.isKeyPressed("KeyS")){
 			text+=" S ";
 			keysPressed=true;
-			this.car.move(-this.speed);
+			this.car.move(-this.speed/100, 0);
+		}
+
+		else{
+			this.car.move(0, 0);
+		}
+
+		if (this.gui.isKeyPressed("KeyA")){
+			text+=" A ";
+			keysPressed=true;
+			this.car.move(0, this.speed/45);
+		}
+
+		else if (this.gui.isKeyPressed("KeyD")){
+			text+=" D ";
+			keysPressed=true;
+			this.car.move(0, -this.speed/45);
 		}
 
 		if (keysPressed)
@@ -153,6 +169,7 @@ class LightingScene extends CGFscene
 		this.Light3 = true;
 		this.Light4 = true;
 		this.speed = 0.1;
+		this.Texture = 'space';
 		this.showObjects = false;
 		this.visibleAxis = false;
 	}
@@ -233,7 +250,7 @@ class LightingScene extends CGFscene
 			
 			// transformations
 			this.pushMatrix();
-				this.translate(-10,1,-20);
+				this.translate(-15,0,-20);
 				this.myTrapezium.display();
 			this.popMatrix();
 

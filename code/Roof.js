@@ -27,10 +27,11 @@ class Roof extends CGFobject
 
         // windows appearance
         this.windowAppearance = new CGFappearance(this.scene);
-        this.windowAppearance.setAmbient(155/255,209/255,225/255, 1);
-        this.windowAppearance.setDiffuse(155/255,209/255,225/255, 1);
-        this.windowAppearance.setSpecular(184/255, 255/255, 250/255, 1);
+        this.windowAppearance.setAmbient(50/255,50/255,50/255, 1);
+        this.windowAppearance.setDiffuse(50/255,50/255,50/255, 1);
+        this.windowAppearance.setSpecular(255/255, 255/255, 255/255, 1);
         //this.windowAppearance.setShininess(100);
+
         // init some objects
         // one trapezium prism
         // front and back windows. two windows per side
@@ -47,24 +48,22 @@ class Roof extends CGFobject
     display(){
         // the main body structure
         this.scene.pushMatrix();
-            this.scene.translate(this.BASE_WIDTH/2, this.HEIGHT/2, 0);
-            this.scene.rotate(-Math.PI/2, 1, 0, 0);
             this.roofBody.display(); 
         this.scene.popMatrix();
 
         this.windowAppearance.apply();
         
         // define the front and back windows margins
-        let verticalMargin = 0.2; // margin applied at top and bottom
+        let verticalMargin = 0.15; // margin applied at top and bottom
         let horizontalMargin = 0.1; // margin applied at both sides
 
         // the front window
         let frontWindowHeight = this.roofBody.getFrontPanelLength() - verticalMargin*2;
         let frontWindowWidth = this.LENGTH - horizontalMargin*2;
         this.scene.pushMatrix();
-            this.scene.translate(-0.01, 0, 0); // a little shift to avoid rendering glitches
+            this.scene.translate(-0.01, 0, 0); // just a small shift, so that the panel is above the trapezium (avoid glitches)    
             this.scene.rotate(this.roofBody.getFrontPanelAngle(), 0, 0, 1);
-            this.scene.translate(0, frontWindowHeight/2 + verticalMargin, 0);
+            this.scene.translate(0, frontWindowHeight/2 + verticalMargin, frontWindowWidth/2 + horizontalMargin);
             this.scene.scale(0, frontWindowHeight, frontWindowWidth); 
             this.scene.rotate(-Math.PI/2, 0, 1, 0);
             this.frontWindow.display();
@@ -76,29 +75,27 @@ class Roof extends CGFobject
         this.scene.pushMatrix();
             this.scene.translate(this.BASE_WIDTH + 0.01, 0, 0); // just a small shift, so that the panel is above the trapezium (avoid glitches)    
             this.scene.rotate(this.roofBody.getBackPanelAngle(), 0, 0, 1);
-            this.scene.translate(0, backWindowHeight/2 + verticalMargin, 0);
+            this.scene.translate(0, backWindowHeight/2 + verticalMargin, backWindowWidth/2 + horizontalMargin);
             this.scene.scale(0, backWindowHeight, backWindowWidth); 
             this.scene.rotate(Math.PI/2, 0, 1, 0);
             this.backWindow.display();
         this.scene.popMatrix();
-        
+
         // lateral window left
         // a ratio to shrink the window such that vertical lenght is the same as other windows
-        let ratio = frontWindowHeight*Math.sin(this.SLANG*degToRad)/this.HEIGHT; 
+        let ratio = frontWindowHeight*Math.sin(this.SLANG*degToRad)/this.HEIGHT;
         this.scene.pushMatrix();
-            this.scene.translate(this.BASE_WIDTH/2, this.HEIGHT/2, this.LENGTH/2 + 0.01);
+            this.scene.translate((this.BASE_WIDTH-this.BASE_WIDTH*ratio)/2, (this.HEIGHT-this.HEIGHT*ratio)/2, this.LENGTH + 0.01); // align to the center
             this.scene.scale(ratio, ratio, 1);
             this.lateralLeftWindow.display();
         this.scene.popMatrix();
 
         // lateral window right
         this.scene.pushMatrix();
-            this.scene.translate(this.BASE_WIDTH/2, this.HEIGHT/2, -this.LENGTH/2 - 0.01);
+            this.scene.translate((this.BASE_WIDTH-this.BASE_WIDTH*ratio)/2, (this.HEIGHT-this.HEIGHT*ratio)/2, -0.01); // align to the center
             this.scene.scale(ratio, ratio, 1);
             this.lateralRightWindow.display();
         this.scene.popMatrix();
-
-
     }
 
 
