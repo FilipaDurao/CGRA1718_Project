@@ -27,16 +27,16 @@ class Roof extends CGFobject
 
         // windows appearance
         this.windowAppearance = new CGFappearance(this.scene);
-        this.windowAppearance.setAmbient(155/255,209/255,225/255, 1);
-        this.windowAppearance.setDiffuse(155/255,209/255,225/255, 1);
-        this.windowAppearance.setSpecular(184/255, 255/255, 250/255, 1);
-        //this.windowAppearance.setShininess(100);
+        this.windowAppearance.setAmbient(102/255,151/255,153/255, 1);
+        this.windowAppearance.setDiffuse(0.1, 0.1, 0.1, 1);
+        this.windowAppearance.setSpecular(0.95, 0.95, 0.95, 1); 
+
         // init some objects
         // one trapezium prism
         // front and back windows. two windows per side
         this.roofBody = new MyTrapeziumPrism(this.scene, this.BASE_WIDTH, this.TOP_WIDTH, this.SLANG, this.HEIGHT, this.LENGTH);
-        this.frontWindow = new Plane(this.scene);
-        this.backWindow = new Plane(this.scene);
+        this.frontWindow = new Plane(this.scene, 50);
+        this.backWindow = new Plane(this.scene, 50);
         this.lateralLeftWindow = new MyTrapezium(this.scene, this.BASE_WIDTH, this.TOP_WIDTH, this.HEIGHT, this.SLANG);
         this.lateralRightWindow = new MyTrapezium(this.scene, this.BASE_WIDTH, this.TOP_WIDTH, this.HEIGHT, this.SLANG);
         
