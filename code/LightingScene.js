@@ -83,6 +83,18 @@ class LightingScene extends CGFscene
 	};
 
 	initObjects() {
+		// The scene objects 
+        let altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ], 
+                        [ 2.0 , 4.0 , 5.0, 10.0, 20.0, 12.0, 4.3, 1.3 ], 
+                        [ 3.0 , 3.0 , 3.0, 4.0, 8.0, 6.4, 4.3, 1.3 ], 
+                        [ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], 
+                        [ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], 
+                        [ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], 
+                        [ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], 
+                        [ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ], 
+                        [ 2.0 , 3.0 , 3.5, 3.0, 2.5, 2.4, 2.3, 1.3 ] 
+					   ];
+
 		this.car = new MyVehicle(this);
 		this.floor = new MyTerrain(this);
 
@@ -93,8 +105,11 @@ class LightingScene extends CGFscene
 	}
 
 	initAppearance() {
-		this.feupTexture = new CGFappearance(this);
-		this.feupTexture.loadTexture("../textures/feuplogo.jpg");
+		this.vidalTexture = new CGFappearance(this); 
+        this.vidalTexture.loadTexture("../textures/vidal.jpeg"); 
+        this.vidalTexture.setSpecular(0.5, 0.5, 0.5, 1); 
+        this.vidalTexture.setDiffuse(0.6, 0.6, 0.6, 1); 
+        this.vidalTexture.setAmbient(0.6, 0.6, 0.6, 1);
 	}
 
 	updateLights(){
@@ -245,8 +260,8 @@ class LightingScene extends CGFscene
 		this.popMatrix();
 		
 		if(this.showObjects) {
-			// apply texture TODO
-			this.feupTexture.apply();
+			// apply texture
+			this.vidalTexture.apply();
 
 			// change camera
 			//this.camera.setPosition(vec3.fromValues(-10, 0, -15));
@@ -254,20 +269,22 @@ class LightingScene extends CGFscene
 			
 			// transformations
 			this.pushMatrix();
-				this.translate(-10,1,-20);
+				this.translate(-25,0, 0);
 				this.myTrapezium.display();
 			this.popMatrix();
 
 			this.pushMatrix();
 				this.scale(1,10,1);
-				this.translate(-17,0,-20);
-				this.rotate(-Math.PI/2, 1, 0, 0);
+				this.translate(-24,1, -2); 
+                this.rotate(Math.PI, 0, 1, 0); 
+                this.rotate(Math.PI/2, 1, 0, 0);
 				this.myCylinder.display();
 			this.popMatrix();
 
 			this.pushMatrix();
-				this.translate(-20,0,-20);
-				this.rotate(-Math.PI/2, 1, 0, 0);
+				this.translate(-24,0,5); 
+				this.scale(2, 2, 2); 
+				this.rotate(Math.PI, 0, 1, 0);
 				this.mySemiSphere.display();
 			this.popMatrix();
 		}
