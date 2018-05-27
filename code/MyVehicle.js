@@ -20,6 +20,7 @@ class MyVehicle extends CGFobject
 		this.WHEEL_DIAMETER = 0.8;
 
 		this.speed = 0;
+		this.direction = 0;
         this.xPos = 0;
         this.zPos = 0;
     };
@@ -164,14 +165,24 @@ class MyVehicle extends CGFobject
 		this.scene.popMatrix();
     }
 
-	move(speed){
-		this.zPos += speed;
-		this.frontWheel.rotateWheel(speed/(this.WHEEL_DIAMETER/2));
-		this.backWheel.rotateWheel(speed/(this.WHEEL_DIAMETER/2));
+	
+	move(speed, turnAngle){
+		this.speed += speed;
+
+		this.frontWheel.rotateWheel(this.speed/(this.WHEEL_DIAMETER/2));
+		this.backWheel.rotateWheel(this.speed/(this.WHEEL_DIAMETER/2));
+		this.frontWheel.turnWheel(turnAngle);
+		this.direction += this.speed * this.frontWheel.turnAngle;
+		this.zPos += this.speed * Math.cos(this.direction);
+		this.xPos += this.speed * Math.sin(this.direction);
 	}
 
 	performMovement(){
 		this.scene.translate(this.xPos, 0, this.zPos);
+
+		this.scene.translate(0, 0, 0.95*1.2);
+			this.scene.rotate(this.direction, 0, 1, 0);
+		this.scene.translate(0, 0, -0.95*1.2);
 	}
 
 };

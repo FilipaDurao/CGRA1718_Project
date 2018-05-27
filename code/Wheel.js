@@ -26,10 +26,12 @@ class Wheel extends CGFobject {
         this.janteAppearance.setAmbient(0.6, 0.6, 0.6, 1);
 
         this.angle = 0;
+        this.turnAngle = 0;
         this.RADIOUS = 1;
     }
     
     display() {
+        this.performTurn();
         this.performRotation();
 
         this.scene.pushMatrix();
@@ -75,11 +77,24 @@ class Wheel extends CGFobject {
 
     rotateWheel(angle) {
         this.angle += angle;
-        console.log("Angle changed to " + this.angle);
+    }
+
+    turnWheel(turnAngle){    	
+    	if(this.turnAngle < 0.3 && this.turnAngle > -0.3){
+			this.turnAngle += turnAngle;
+    	}
+    	
+    	if(turnAngle == 0){
+    		this.turnAngle -= this.turnAngle/15;
+    	}
     }
 
     performRotation() {
-          this.scene.rotate(this.angle, 0, 0, 1);
+    	this.scene.rotate(this.angle, 0, 0, 1);
+    }
+
+    performTurn(){
+    	this.scene.rotate(this.turnAngle, 0, 1, 0);
     }
 
 }
