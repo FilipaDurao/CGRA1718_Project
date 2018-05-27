@@ -24,7 +24,7 @@ class MyInterface extends CGFinterface {
 		this.gui = new dat.GUI();
 		this.initAxisButton();
 		this.initLightsFolder();
-		this.initSpeedSlider(0, 5);
+		this.initSpeedSlider(0, 1);
 		this.initObjectsToggle();
 		this.initKeys();
 		this.initDropDownTextures();
