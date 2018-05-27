@@ -96,7 +96,7 @@ class LightingScene extends CGFscene
 					   ];
 
 		this.car = new MyVehicle(this);
-		this.floor = new MyTerrain(this);
+		this.floor = new MyTerrain(this, 8, altimetry);
 
 		// request objects by teacher
 		this.myTrapezium = new MyTrapeziumPrism(this, 5, 3, 45, 2, 2);
