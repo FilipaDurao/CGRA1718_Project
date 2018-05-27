@@ -61,8 +61,5 @@ class RearMirror extends CGFobject {
 			this.mirrorAppearance.apply();
 			this.circle.display();
 		this.scene.popMatrix();
-
-
-
     }
 };

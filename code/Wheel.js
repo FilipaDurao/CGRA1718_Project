@@ -31,7 +31,7 @@ class Wheel extends CGFobject {
     }
     
     display() {
-    	this.performTurn();
+        this.performTurn();
         this.performRotation();
 
         this.scene.pushMatrix();

@@ -1,20 +1,17 @@
 var degToRad = Math.PI / 180.0;
-class LightingScene extends CGFscene 
-{
-	constructor()
-	{
+class LightingScene extends CGFscene {
+	constructor() {
 		super();
 	};
 
-	init(application) 
-	{
+	init(application) {
 		super.init(application);
 
 		this.initCameras();
 
 		this.initLights();
 
-		this.gl.clearColor(135/255, 206/255, 235/255, 1.0);
+		this.gl.clearColor(135 / 255, 206 / 255, 235 / 255, 1.0);
 		this.gl.clearDepth(100.0);
 		this.gl.enable(this.gl.DEPTH_TEST);
 		this.gl.enable(this.gl.CULL_FACE);
@@ -43,12 +40,12 @@ class LightingScene extends CGFscene
 		
 	};
 
-	initCameras(){
+	initCameras() {
 		this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
 	};
 
-	initLights(){
-		this.setGlobalAmbientLight(0.2,0.2,0.2, 1.0);
+	initLights() {
+		this.setGlobalAmbientLight(0.2, 0.2, 0.2, 1.0);
 
 		// Create light 1
 		this.lights[0] = new CGFlight(this, 0);
@@ -61,6 +58,7 @@ class LightingScene extends CGFscene
 		this.lights[0].enable();
 
 		// Create light 2
+
 		this.lights[1].setPosition(10, 20, -10, 1);
 		this.lights[1].setVisible(true); // show marker on light position (different from enabled)
 		this.lights[1].setAmbient(0.5, 0.5, 0.5, 1);
@@ -68,7 +66,7 @@ class LightingScene extends CGFscene
 		this.lights[1].setSpecular(0.15, 0.15, 0.15, 1.0);
 		this.lights[1].setLinearAttenuation(0.1);
 		this.lights[1].enable();
-		
+
 		// Create light 3
 		this.lights[2].setPosition(-10, 20, 10, 1);
 		this.lights[2].setVisible(true); // show marker on light position (different from enabled)
@@ -99,22 +97,22 @@ class LightingScene extends CGFscene
 	};
 
 	initObjects() {
+		// The scene objects 
+		let altimetry = [
+			[2.0, 3.0, 2.0, 4.0, 2.5, 2.4, 2.3, 1.3],
+			[2.0, 4.0, 5.0, 10.0, 20.0, 12.0, 4.3, 1.3],
+			[3.0, 3.0, 3.0, 4.0, 8.0, 6.4, 4.3, 1.3],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+			[2.0, 3.0, 3.5, 3.0, 2.5, 2.4, 2.3, 1.3]
+		];
 
-		// The scene objects
-		let altimetry= [[ 2.0 , 3.0 , 2.0, 4.0, 2.5, 2.4, 2.3, 1.3 ],
-						[ 2.0 , 4.0 , 5.0, 10.0, 20.0, 12.0, 4.3, 1.3 ],
-						[ 3.0 , 3.0 , 3.0, 4.0, 8.0, 6.4, 4.3, 1.3 ],
-						[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-						[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-						[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-						[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-						[ 0.0 , 0.0 , 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ],
-						[ 2.0 , 3.0 , 3.5, 3.0, 2.5, 2.4, 2.3, 1.3 ]
-					   ];
 		this.car = new MyVehicle(this);
-		this.crane = new MyCrane(this);
 		this.floor = new MyTerrain(this, 8, altimetry);
-		console.log(this.floor);
+		this.crane = new MyCrane(this);
 
 		// request objects by teacher
 		this.myTrapezium = new MyTrapeziumPrism(this, 5, 3, 45, 2, 2);
@@ -126,11 +124,11 @@ class LightingScene extends CGFscene
 		this.vidalTexture = new CGFappearance(this);
 		this.vidalTexture.loadTexture("../textures/vidal.jpeg");
 		this.vidalTexture.setSpecular(0.5, 0.5, 0.5, 1);
-        this.vidalTexture.setDiffuse(0.6, 0.6, 0.6, 1);
-        this.vidalTexture.setAmbient(0.6, 0.6, 0.6, 1);
+		this.vidalTexture.setDiffuse(0.6, 0.6, 0.6, 1);
+		this.vidalTexture.setAmbient(0.6, 0.6, 0.6, 1);
 	}
 
-	updateLights(){
+	updateLights() {
 		for (var i = 0; i < this.lights.length; i++)
 			this.lights[i].update();
 	}
@@ -157,7 +155,7 @@ class LightingScene extends CGFscene
 	+------------------------------------+
 	*/
 
-	checkKeys(){
+	checkKeys() {
 
 		var text="Keys pressed: ";
 		var keysPressed=false;
@@ -176,21 +174,26 @@ class LightingScene extends CGFscene
 			this.car.move(-this.speed/100, 0);
 		}
 
-		else{
+		// To accelerate the car backwards
+		else if (this.gui.isKeyPressed("KeyS")) {
+			text += " S ";
+			keysPressed = true;
+			this.car.move(-this.speed / 100, 0);
+		} else {
 			this.car.move(0, 0);
 		}
 
 		// To turn left
-		if (this.gui.isKeyPressed("KeyA")){
-			text+=" A ";
-			keysPressed=true;
+		if (this.gui.isKeyPressed("KeyA")) {
+			text += " A ";
+			keysPressed = true;
 			this.car.move(0, this.speed);
 		}
 
 		// To turn right
-		if (this.gui.isKeyPressed("KeyD")){
-			text+=" D ";
-			keysPressed=true;
+		if (this.gui.isKeyPressed("KeyD")) {
+			text += " D ";
+			keysPressed = true;
 			this.car.move(0, -this.speed);
 		}
 
@@ -209,16 +212,16 @@ class LightingScene extends CGFscene
 	/**
 	 * Declares and defines a set of variables for GUI controller
 	 */
-	initInterfaceVariables(){
+	initInterfaceVariables() {
 		this.Light1 = true;
 		this.Light2 = true;
 		this.Light3 = true;
 		this.Light4 = true;
 		this.Light5 = true;
 		this.speed = 0.1;
-		this.Texture = 'space';
 		this.showObjects = false;
 		this.visibleAxis = false;
+		this.Texture = 'space';
 	}
 
 	/**
@@ -226,11 +229,10 @@ class LightingScene extends CGFscene
 	 * @param {number} lightIndex The light index
 	 * @param {boolean} turnOn true to enable the light, false otherwise
 	 */
-	toggleLight(lightIndex, turnOn){
-		if(turnOn){
+	toggleLight(lightIndex, turnOn) {
+		if (turnOn) {
 			this.lights[lightIndex].disable();
-		}
-		else{
+		} else {
 			this.lights[lightIndex].enable();
 		}
 	}
@@ -238,7 +240,7 @@ class LightingScene extends CGFscene
 	/**
 	 * Shows/hides the scene axis (GUI)
 	 */
-	toggleAxis(){
+	toggleAxis() {
 		this.visibleAxis = !this.visibleAxis;
 	};
 
@@ -248,10 +250,10 @@ class LightingScene extends CGFscene
 	 * All these objects have a texture applied
 	 */
 	toggleSceneObjects() {
-		this.showObjects = !this.showObjects; 
+		this.showObjects = !this.showObjects;
 	}
 
-	display(){
+	display() {
 		// ---- BEGIN Background, camera and axis setup
 
 		// Clear image and depth buffer everytime we update the scene
@@ -269,7 +271,7 @@ class LightingScene extends CGFscene
 		this.updateLights();
 
 		// Draw axis
-		if(this.visibleAxis){
+		if (this.visibleAxis) {
 			this.axis.display();
 		}
 
@@ -302,36 +304,38 @@ class LightingScene extends CGFscene
 
 		// Draw the floor
 		this.pushMatrix();
-			this.floor.display();
+		this.floor.display();
 		this.popMatrix();
-		
-		if(this.showObjects) {
-			// apply texture TODO
+
+		if (this.showObjects) {
+			// apply texture
 			this.vidalTexture.apply();
 
 			// change camera
 			//this.camera.setPosition(vec3.fromValues(-10, 0, -15));
 			//this.camera.setTarget(vec3.fromValues(-20, 0, -15));
-			
-			this.pushMatrix();
-				this.translate(-25,0, 0);
-				this.myTrapezium.display();
-			this.popMatrix();
 
+			// transformations
 			this.pushMatrix();
-				this.scale(1,10,1);
-				this.translate(-24,1, -2);
+				this.scale(1, 10, 1);
+				this.translate(-22, 1, 0);
 				this.rotate(Math.PI, 0, 1, 0);
-				this.rotate(Math.PI/2, 1, 0, 0);
+				this.rotate(Math.PI / 2, 1, 0, 0);
 				this.myCylinder.display();
 			this.popMatrix();
 
 			this.pushMatrix();
-				this.translate(-24,0,5);
+				this.translate(-22, 0, 4);
 				this.scale(2, 2, 2);
-				this.rotate(Math.PI, 0, 1, 0);
 				this.rotate(-Math.PI/2, 1, 0, 0);
 				this.mySemiSphere.display();
+			this.popMatrix();
+
+			this.pushMatrix();
+				this.translate(-22, 1, 10);
+				this.rotate(Math.PI/2, 0, 1, 0);
+				this.rotate(-Math.PI/2, 1, 0, 0);
+				this.myTrapezium.display();
 			this.popMatrix();
 		}
 		// ---- END Scene drawing section
